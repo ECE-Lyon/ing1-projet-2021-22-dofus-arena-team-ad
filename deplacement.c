@@ -77,14 +77,15 @@ int determinerLeChemin(Coords *joueurPI, int *PM, Coords PF, int tabObstacle[LIG
         int inc = 0; // increment
         int NBDC = 0; // nb de deplacement colonne
         bool obstacle = false; // par defaut il n'y a pas d'obstacles
-        //calculer ecart ezntre PI et PF
+        //calculer ecart entre PI et PF
         ecart = PF.colonne - joueurPI->colonne;
         if (ecart == 0) {
             depHorizon = false; //on reste sur la colonne
         }
         printf("deplacement horizontal =%d - ecart = %d  joueur col =%d lig %d - destination col %d lig %d\n",
                depHorizon, ecart, joueurPI->colonne, joueurPI->ligne, PF.colonne, PF.ligne);
-        printf("tabChemin du while : colonnes: %d - ligne: %d\n", tabChemin[*PM].colonne, tabChemin[*PM].ligne);
+        printf("tabChemin du while : colonnes: %d - ligne: %d\n", tabChemin[indiceTab].colonne,
+               tabChemin[indiceTab].ligne);
         if (depHorizon) { // deplacement horizontal en cours
             // stocker le nb de deplacement colonne
             NBDC = abs(ecart);
@@ -101,12 +102,14 @@ int determinerLeChemin(Coords *joueurPI, int *PM, Coords PF, int tabObstacle[LIG
             // determiner si le nb de deplacement est superieur au nb deplacement autorisé
             if (!isObstacle(tabObstacle, joueurPI, loop, inc, depHorizon)) {
                 stockerTabChemin(tabChemin, &indiceTab, joueurPI, loop, inc,
-                                 depHorizon); // PM+1 car tab initialisé avec en tab[0] la position init joueur
+                                 depHorizon);
                 printf("IL Y A PAS OBSTACLE\n");
             } // fin isObstacle
             else {
                 printf("IL Y A UN OBSTACLE\n");
                 obstacle = true;
+                (*joueurPI)= tabChemin[indiceTab-1];
+                *PM-=1;
             }
             loop++;
             (*PM) = (*PM) + 1;
@@ -120,9 +123,22 @@ int determinerLeChemin(Coords *joueurPI, int *PM, Coords PF, int tabObstacle[LIG
         }
         if (!obstacle) {
             //les coordonees du joueur deviennent celle du chemin
-            joueurPI->colonne = tabChemin[*PM].colonne;
-            joueurPI->ligne = tabChemin[*PM].ligne;
+            joueurPI->colonne = tabChemin[indiceTab - 1].colonne;
+            joueurPI->ligne = tabChemin[indiceTab - 1].ligne;
             printf("[%d; %d]", joueurPI->ligne, joueurPI->colonne);
+        } else {
+            if (ecart == 0) {
+                joueurPI->colonne = tabChemin[0].colonne;
+                joueurPI->ligne = tabChemin[0].ligne;
+                printf("Obstcale&Ecart=0:[%d; %d]\n", joueurPI->ligne, joueurPI->colonne);
+                *PM = 0;
+                initialiserTabChemin(tabChemin);
+                indiceTab = 0;
+                tabChemin[indiceTab] = positionInitiale;
+                depHorizon = false;
+                indiceTab++;
+
+            }
         }
         printf("determiner chemin ligne 109 - PM: %d - obstacle: %d\n", *PM, obstacle);
     } while ((joueurPI->colonne != PF.colonne) ||

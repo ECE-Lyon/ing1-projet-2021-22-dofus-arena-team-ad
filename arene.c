@@ -75,3 +75,9 @@ void afficherTableau (int tab[LIGNES_TAB][COLONNES_TAB]) {
         printf("\n");
     }
 }
+void initialiserTabChemin(Coords tabChemin[PM_MAX+1]){
+    for (int i = 0; i < PM_MAX + 1; i++) {
+        tabChemin[i].ligne = CASE_VIDE;
+        tabChemin[i].colonne = CASE_VIDE;
+    }
+}

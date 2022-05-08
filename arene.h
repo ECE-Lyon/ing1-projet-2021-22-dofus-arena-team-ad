@@ -10,5 +10,7 @@
 void initialiserImages(Image* decor);
 void construireLarene(int ClasseDuJoueur,int tabArene[LIGNES_TAB][COLONNES_TAB]) ;
 void initialiserTableau( int tab[LIGNES_TAB][COLONNES_TAB]);
+void initialiserTabChemin(Coords tabChemin[PM_MAX+1]);
 void afficherTableau (int tab[LIGNES_TAB][COLONNES_TAB]);
+
 #endif //PROJET2_ARENE_H

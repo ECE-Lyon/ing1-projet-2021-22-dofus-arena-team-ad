@@ -181,7 +181,8 @@ int valeureAbsolue(int i, int j) {
     }
 }
 
-void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX+1], Coords positionJoueur) {
+void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TAB][COLONNES_TAB],
+               Coords tabChemin[PM_MAX + 1], Coords positionJoueur) {
     bool end = false;
     ALLEGRO_TIMER *timer = NULL;
     ALLEGRO_DISPLAY *display = NULL;
@@ -258,19 +259,27 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                 }
                 printf("AFFICHAGE PM: %d\n", PM);
 // tant que le joueur n'a pas atteind la position finale et n'as pas fait 3PM de deplacement
-                while (determinerChemin == 0 && (PM < PM_MAX && (positionJoueur.colonne != positionFinale.colonne ||
-                                                                 positionJoueur.ligne != positionFinale.ligne))) {
-                    printf("ligne:%d - col: %d\n", positionJoueur.ligne, positionJoueur.colonne);
-                    determinerChemin = determinerLeChemin(&positionJoueur, &PM, positionFinale, TabObstacle, tabChemin);
-                    if (tabChemin[0].colonne == CASE_VIDE) {
+                if (PM < PM_MAX && (positionJoueur.colonne != positionFinale.colonne ||
+                                    positionJoueur.ligne != positionFinale.ligne)) {
+
+                    while (determinerChemin == 0 && PM < PM_MAX && (positionJoueur.colonne != positionFinale.colonne ||
+                                                                    positionJoueur.ligne != positionFinale.ligne)) {
+                        printf("ligne:%d - col: %d\n", positionJoueur.ligne, positionJoueur.colonne);
+                        determinerChemin = determinerLeChemin(&positionJoueur, &PM, positionFinale, TabObstacle,
+                                                              tabChemin);
+                        if (tabChemin[0].colonne == CASE_VIDE) {
 //tab de chemin vide --> pas de deplacement joueur
+                        }
+                        printf("PM: %d - ligne:%d - col: %d\n", PM, positionJoueur.ligne, positionJoueur.colonne);
                     }
-                    printf("PM: %d - ligne:%d - col: %d\n", PM, positionJoueur.ligne, positionJoueur.colonne);
+                    if (determinerChemin == 0) {
+                        printf("deplacer perso\n");
+                        afficherPerso(tabChemin, decor.perso, tabCase, ligneSouris, colonneSouris, decor,
+                                      ligne, colonne, tabArene);
+                    }
                 }
-                if (determinerChemin == 0) {
-                    printf("deplacer perso\n");
-                    afficherPerso(tabChemin, decor.perso, tabCase, ligneSouris, colonneSouris, decor,
-                                  ligne, colonne, tabArene);
+                if (PM>=3){
+                  PM=0;
                 }
                 break;
             }

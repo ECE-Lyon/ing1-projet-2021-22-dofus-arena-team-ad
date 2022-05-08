@@ -3,7 +3,7 @@
 
 // AFFICHAGE MATRICE ALLEGRO
 #include "affichage.h"
-
+#include "arene.h"
 int main() {
 
     int tabArene[LIGNES_TAB][COLONNES_TAB];
@@ -39,14 +39,11 @@ int main() {
     afficherTableau(TabObstacle);
 
     // init de la position joueur initiale (test)
-    positionJoueur.colonne = 4;
-    positionJoueur.ligne = 8;
+    positionJoueur.colonne = 12;
+    positionJoueur.ligne = 7;
 
     // init du tab chemin
-    for (int i = 0; i < PM_MAX + 1; i++) {
-        tabChemin[i].ligne = CASE_VIDE;
-        tabChemin[i].colonne = CASE_VIDE;
-    }
+    initialiserTabChemin(tabChemin);
     affichage(tabArene, TabObstacle, tabChemin, positionJoueur);
     return 0;
 }
