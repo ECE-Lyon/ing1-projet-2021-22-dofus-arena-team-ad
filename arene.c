@@ -10,7 +10,6 @@ void construireLarene(int ClasseDuJoueur,int tabArene[LIGNES_TAB][COLONNES_TAB])
     //Initialisation des variables
     int ligne=0,colonne=0,myCaractere=0;
     FILE* fichier = NULL;
-    printf("\nClasse du joueur=%d\n",ClasseDuJoueur);
     switch (ClasseDuJoueur)
     {
         case 1:
@@ -79,5 +78,28 @@ void initialiserTabChemin(Coords tabChemin[PM_MAX+1]){
     for (int i = 0; i < PM_MAX + 1; i++) {
         tabChemin[i].ligne = CASE_VIDE;
         tabChemin[i].colonne = CASE_VIDE;
+    }
+}
+
+void intialisationArene(int tabArene[LIGNES_TAB][COLONNES_TAB],int TabObstacle[LIGNES_TAB][COLONNES_TAB]){
+
+    int ligne = 0, colonne = 0;
+
+    //Init du tableau pour stoquer l'arene
+    initialiserTableau(tabArene);
+    //Init du tableau pour stoquer les obstacles
+    initialiserTableau(TabObstacle);
+
+    construireLarene(1, tabArene);
+
+    //le Tableau avec les cases correspondants a l'arene est construit, construisons le tableau des obstacles :
+    // Pas de 0 , si 1 c'est de l'herbe , si 2 c'est du sable , si 3 c'est un rocher, si 4 c'est un vaiseau
+    // donc si la case continent un chiffre > 3(CASE_OBSTACLE) c'est un obstacle
+    for (colonne = 0; colonne < COLONNES_TAB; colonne++) {
+        for (ligne = 0; ligne < LIGNES_TAB; ligne++) {
+            if (tabArene[ligne][colonne] >= CASE_OBSTACLE) {
+                TabObstacle[ligne][colonne] = CASE_OBSTACLE;
+            }
+        }
     }
 }
