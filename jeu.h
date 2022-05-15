@@ -31,10 +31,7 @@
 typedef struct{
     int ligne, colonne;
 }Coords;
-typedef struct {
-    int ligne, colonne;
-    ALLEGRO_BITMAP *image;
-} Joueur;
+
 typedef struct {
     float x, y;
     bool deplacement;
