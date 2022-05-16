@@ -13,14 +13,9 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
-#include "joueur.h"
+#include "general.h"
 #include "arene.h"
 #include "deplacement.h"
-#define ECRAN_LONGUEUR 2880
-#define ECRAN_LARGEUR 1694
-#define TAILLE_CASE 100
-#define X_TAB 80
-#define Y_TAB 135
 #define NB_IMAGES 1
 #define largeurIm 50 // caractéristiques de l'image
 #define hauteurIm 70

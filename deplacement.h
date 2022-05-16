@@ -9,6 +9,7 @@
 #include "allegro5/allegro_image.h"
 #include "jeu.h"
 #include "arene.h"
+#include "general.h"
 
 bool isObstacle(int tabObstacle[LIGNES_TAB][COLONNES_TAB], Coords* joueurPI, int loop, int inc,bool depHorizon);
 int determinerLeChemin(Coords *joueurPI, int *PM, Coords PF, int tabObstacle[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX+1]);

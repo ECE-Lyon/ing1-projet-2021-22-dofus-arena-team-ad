@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "general.h"
 
 int determinerSensDeplacement(int positionInitiale, int PF) {
     int increment;

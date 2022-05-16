@@ -6,6 +6,7 @@
 #define PROJET2_ARENE_H
 #include <stdbool.h>
 #include "jeu.h"
+#include "general.h"
 
 void initialiserImages(Image* decor);
 void construireLarene(int ClasseDuJoueur,int tabArene[LIGNES_TAB][COLONNES_TAB]) ;

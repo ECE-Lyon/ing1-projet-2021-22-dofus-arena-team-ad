@@ -3,20 +3,8 @@
 //
 
 #include "affichage.h"
+#include "general.h"
 
-void affichageMatrice(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris) {
-    for (int i = 0; i <= LIGNES_TAB; ++i) {
-        al_draw_line(X_TAB, Y_TAB + i * TAILLE_CASE,
-                     X_TAB + TAILLE_CASE * COLONNES_TAB, Y_TAB + i * TAILLE_CASE,
-                     al_map_rgb(0, 0, 0), 1);
-    }
-    for (int j = 0; j <= COLONNES_TAB; ++j) {
-        al_draw_line(X_TAB + j * TAILLE_CASE, Y_TAB,
-                     X_TAB + j * TAILLE_CASE, Y_TAB + TAILLE_CASE * LIGNES_TAB,
-                     al_map_rgb(0, 0, 0), 1);
-    }
-
-}
 
 void affichagePorteeDeplacement(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, int ligne,
                                 int colonne) {
@@ -63,7 +51,7 @@ void chargerAnimation(Joueurs *listeJ, ALLEGRO_BITMAP *ImPerso[]) {
     // charger l'animation
     char nom[256];
     for (int j = 0; j < NB_IMAGES; j++) {
-        switch (listeJ->classeJ.numJ) {
+        switch (listeJ->classeJ.numClasse) {
             case 1: {
                 sprintf(nom, "../background/Solaris%d.png", j);
                 break;
