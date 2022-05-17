@@ -7,7 +7,6 @@ void affichageMenu0(ALLEGRO_BITMAP* background, rectangle rectNom1, rectangle re
     al_draw_filled_rectangle(rectNom2.x, rectNom2.y, rectNom2.x + rectNom2.longueur, rectNom2.y + rectNom2.largeur, al_map_rgb(224,176,255));
     al_draw_rectangle(rectNom2.x, rectNom2.y, rectNom2.x + rectNom2.longueur, rectNom2.y + rectNom2.largeur, al_map_rgb(127,0,255), 2);
     al_draw_text(Megrim, al_map_rgb(255,255,255), 10, 10, ALLEGRO_ALIGN_LEFT, "STELLAR WARS");
-    al_draw_text(Orbitron, al_map_rgb(255,255,255), rectNom1.x + rectNom1.longueur/8, rectNom2.y+rectNom2.largeur/6, ALLEGRO_ALIGN_LEFT, "PLAY");
     al_flip_display();
 }
 
@@ -585,9 +584,9 @@ void MENU(bool* play, Joueurs** listeJoueurs){
                         break;
 
                     case ALLEGRO_EVENT_TIMER:
+                        affichageMenu0(background, rectNom1, rectNom2, Megrim, Orbitron);
 
-                        affichageRectangle(SOLARIS,TERRA,MARTIAN,SATURNA, peindrerect, menu ,rectNom1, rectNom2, mini,Carre1,Carre2,Carre3,Carre4, NomClasse1, NomClasse2,
-                                           NomClasse3,
+                        affichageRectangle(SOLARIS,TERRA,MARTIAN,SATURNA, peindrerect, menu ,rectNom1, rectNom2, mini,Carre1,Carre2,Carre3,Carre4, NomClasse1, NomClasse2,NomClasse3,
                                            NomClasse4, mini2, Orbitron, miniOrbitron, nbJ);
 
                         break;

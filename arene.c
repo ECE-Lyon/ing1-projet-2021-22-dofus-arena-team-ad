@@ -10,8 +10,7 @@ void construireLarene(int ClasseDuJoueur,int tabArene[LIGNES_TAB][COLONNES_TAB])
     //Initialisation des variables
     int ligne=0,colonne=0,myCaractere=0;
     FILE* fichier = NULL;
-    switch (ClasseDuJoueur)
-    {
+    switch (ClasseDuJoueur) {
         case 1:
             /* code */
             fichier = fopen("../arene1.txt", "r");
@@ -28,7 +27,7 @@ void construireLarene(int ClasseDuJoueur,int tabArene[LIGNES_TAB][COLONNES_TAB])
     if (fichier != NULL){
         do {
             for(colonne=0;colonne<=COLONNES_TAB;colonne++) {
-                caractereLu= fgetc(fichier);
+                caractereLu= (char)fgetc(fichier);
                 myCaractere=caractereLu-'0';
                 //printf("ligne = %d, colonne = %d, myCaractere = %d \n",ligne,colonne,myCaractere);
                 if (colonne==COLONNES_TAB) { //caractere fin de ligne
@@ -46,7 +45,6 @@ void construireLarene(int ClasseDuJoueur,int tabArene[LIGNES_TAB][COLONNES_TAB])
         printf("fichier vide\n");
     }
     return;
-
 }
 void initialiserImages(Image* decor){
     decor->fond= al_load_bitmap("../background/fond.png");
@@ -91,7 +89,7 @@ void intialisationArene(int tabArene[LIGNES_TAB][COLONNES_TAB],int TabObstacle[L
     initialiserTableau(TabObstacle);
 
     construireLarene(1, tabArene);
-
+    afficherTableau(tabArene);
     //le Tableau avec les cases correspondants a l'arene est construit, construisons le tableau des obstacles :
     // Pas de 0 , si 1 c'est de l'herbe , si 2 c'est du sable , si 3 c'est un rocher, si 4 c'est un vaiseau
     // donc si la case continent un chiffre > 3(CASE_OBSTACLE) c'est un obstacle
