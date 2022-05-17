@@ -20,7 +20,7 @@
 #define largeurIm 50 // caractéristiques de l'image
 #define hauteurIm 70
 
-void affichageMatrice(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris);
+void affichageMatrice();
 
 void affichagePorteeDeplacement(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, int ligne,
                                 int colonne);
@@ -30,7 +30,7 @@ void afficherPositionJoueur(Case tabCase[LIGNES_TAB][COLONNES_TAB], Coords posit
 void deplacementJoueur(Case tabCase[LIGNES_TAB][COLONNES_TAB], Coords tabChemin);
 
 void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[],Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, Image decor, int ligne, int colonne, int tabArene[LIGNES_TAB][COLONNES_TAB], int PMJoueur, int compteurImage, Joueurs * listeJ, Joueurs *jActuel);
-void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX+1], Joueurs** joueur, Joueurs *jActuel);
+void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX+1], Joueurs*joueur);
 void destroy(Image decors, ALLEGRO_DISPLAY * display, ALLEGRO_TIMER* timer, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_BITMAP* anim[NB_IMAGES]);
 void dessinerTout(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, Image decor, int ligne, int colonne,int tabArene[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX + 1],Coords positionJoueur,ALLEGRO_BITMAP*anim[], int cmptImage,  Joueurs* listeJ, Joueurs *jActuel);
 void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, Image decor, int ligne, int colonne,
