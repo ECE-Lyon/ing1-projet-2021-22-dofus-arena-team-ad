@@ -9,21 +9,10 @@ void JEU(Joueurs* listeJ){
     Coords tabChemin[PM_MAX];
     int tabArene[LIGNES_TAB][COLONNES_TAB];
     int TabObstacle[LIGNES_TAB][COLONNES_TAB];
-    Joueurs * joueurActuel1;
-    //création de la liste joueur
-
-    // init de la position joueur initiale (test)
-
-    /* joueurActuel.positionJ.colonne = 12;
-     joueurActuel.positionJ.ligne = 7;
-     joueurActuel.classeJ.numJ=3;
-     */
-
-
     //création de l'arène
     intialisationArene(tabArene, TabObstacle);
     //affichage du jeu complet + deplacement du joueur
-    affichage(tabArene, TabObstacle, tabChemin, &listeJ, joueurActuel1);
+    affichage(tabArene, TabObstacle, tabChemin, listeJ);
 }
 
 void JEU2(Joueurs* listeJ){

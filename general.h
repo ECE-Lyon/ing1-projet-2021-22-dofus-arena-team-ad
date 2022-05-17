@@ -11,19 +11,19 @@
 #include <allegro5/allegro_acodec.h>
 
 
-#define LARGEUR 1365
-#define HAUTEUR 835
-#define ECRAN_LONGUEUR 1365
-#define ECRAN_LARGEUR 835
+#define LARGEUR 2880
+#define HAUTEUR 1694
+#define ECRAN_LONGUEUR 2880
+#define ECRAN_LARGEUR 1694
 #define NBLETTRE 21
 #define INFINI 100
 #define LIGNES_TAB 15
 #define COLONNES_TAB 20
 #define CASE_OBSTACLE 3
 #define CASE_LIBRE 0
-#define TAILLE_CASE 47
-#define X_TAB 40
-#define Y_TAB 70
+#define TAILLE_CASE 100
+#define X_TAB 80
+#define Y_TAB 135
 #define CASE_VIDE 9999
 
 

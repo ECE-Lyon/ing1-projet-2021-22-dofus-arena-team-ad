@@ -8,5 +8,7 @@
 
 int main() {
     initialisation();
+
+    return 0;
 }
 

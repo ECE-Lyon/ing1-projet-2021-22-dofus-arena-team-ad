@@ -15,10 +15,11 @@ void construireLarene(int ClasseDuJoueur,int tabArene[LIGNES_TAB][COLONNES_TAB])
         case 1:
             /* code */
             fichier = fopen("../arene1.txt", "r");
+            printf("fichier Ok\n");
             break;
         case 2:
             /* code */
-            fichier = fopen("../arene2.txt", "r");
+            fichier = fopen("../arene1.txt", "r");
             break;
         default:
             printf("Classe du joueur inconnue\n");
@@ -45,8 +46,6 @@ void construireLarene(int ClasseDuJoueur,int tabArene[LIGNES_TAB][COLONNES_TAB])
     else {
         printf("fichier vide\n");
     }
-    return;
-
 }
 void initialiserImages(Image* decor){
     decor->fond= al_load_bitmap("../background/fond.png");
@@ -89,7 +88,7 @@ void intialisationArene(int tabArene[LIGNES_TAB][COLONNES_TAB],int TabObstacle[L
     initialiserTableau(tabArene);
     //Init du tableau pour stoquer les obstacles
     initialiserTableau(TabObstacle);
-
+    printf("initialisation tab ok\n");
     construireLarene(1, tabArene);
 
     //le Tableau avec les cases correspondants a l'arene est construit, construisons le tableau des obstacles :
