@@ -87,14 +87,15 @@ void dessinerPerso(ALLEGRO_BITMAP *anim[], int cmptImage, Coords positionJoueur)
 }
 
 void afficherLesAutresJoueurs(Joueurs *listeJ, Joueurs *jActuel) {
-    printf("affciher Autres Joueurs\n");
+    printf("afficher Autres Joueurs\n");
     ALLEGRO_BITMAP *ImPerso[NB_IMAGES];
-    Joueurs * tmp = listeJ;
-    while (tmp->next != listeJ) {
-        if ((jActuel->positionJ.ligne != listeJ->positionJ.ligne) ||
-            (jActuel->positionJ.colonne != listeJ->positionJ.colonne)) {
-            chargerAnimation(listeJ, ImPerso);
-            dessinerPerso(ImPerso, 0, listeJ->positionJ);
+    Joueurs *tmp = listeJ;
+    tmp=tmp->next;
+    while (tmp != listeJ) {
+        if ((jActuel->positionJ.ligne != tmp->positionJ.ligne) ||
+            (jActuel->positionJ.colonne != tmp->positionJ.colonne)) {
+            chargerAnimation(tmp, ImPerso);
+            dessinerPerso(ImPerso, 0, tmp->positionJ);
         }
         tmp = tmp->next;
     }
@@ -107,7 +108,6 @@ void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int co
     int decors = 0;
     // affichage du fond
     al_clear_to_color(al_map_rgb(255, 255, 255));
-    printf("dessinerMap\n");
     al_draw_bitmap(decor.fond, 0, 0, 0);
     affichageMatrice();
     // affichage du décor après lecture du tab Arene
@@ -160,7 +160,6 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                    int tabArene[LIGNES_TAB][COLONNES_TAB], int PMJoueur, int compteurImage, Joueurs *listeJ,
                    Joueurs *jActuel) {
 
-    printf("AFFICHER PERSO\n");
     int tailleTab = 0; // (taille Logique) pour parcourir le tab de chemin et faire se deplacer le joueur en fonction du nb de PM
     Coords positionJoueur;
     Coords positionIntermediaire; // pour faire glisser le perso de cases en cases
@@ -313,12 +312,9 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 
     chargerAnimation(listeJ, anim);
 
-    // initialisation position joueur
-    listeJ->positionJ.colonne=10;
-    listeJ->positionJ.ligne=7;
-    listeJ->next->positionJ.colonne=0;
-    listeJ->next->positionJ.ligne=18;
+    // initialisation position joueu
     printf("jA position: [ %d ; %d]\n", joueurActuel.positionJ.ligne, joueurActuel.positionJ.colonne);
+    printf("j2 position: [%d ; %d]\n", listeJ->next->positionJ.ligne, listeJ->next->positionJ.colonne );
     cmptimage = 0;
 
     al_start_timer(timer);
@@ -326,7 +322,6 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     // on dessine la Map et les persos une première fois
     dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, joueurActuel.positionJ,
                  anim, cmptimage, listeJ, &joueurActuel);
-    printf("passé dans dessiner tout\n");
 // mise en place de la boucle d'evenements
     while (!end) {
         al_wait_for_event(queue, &event);
