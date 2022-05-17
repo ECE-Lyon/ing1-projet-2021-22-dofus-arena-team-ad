@@ -812,11 +812,15 @@ void MENU(bool* play, Joueurs** listeJoueurs){
                                 al_play_sample(clik, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, 0);
                                 if (nbJ > 1) {
                                     listeJ->pv=listeJ->classeJ.pv;
+                                    listeJ->positionJ.colonne=19;
+                                    listeJ->positionJ.ligne=14;
                                     listeJ->next = iniJ(2);
                                     menu = 4;
                                 } else {
                                     menu = 7;
                                     listeJ->pv=listeJ->classeJ.pv;
+                                    listeJ->positionJ.colonne=19;
+                                    listeJ->positionJ.ligne=14;
                                     listeJ->next = listeJ;
                                 }
                                 Jprenom=false;
@@ -1024,11 +1028,15 @@ void MENU(bool* play, Joueurs** listeJoueurs){
                                 al_play_sample(clik, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, 0);
                                 if (nbJ > 2) {
                                     listeJ->next->pv=listeJ->next->classeJ.pv;
+                                    listeJ->next->positionJ.colonne=0;
+                                    listeJ->next->positionJ.ligne=0;
                                     listeJ->next->next = iniJ(3);
                                     menu = 5;
                                 } else {
                                     menu = 7;
                                     listeJ->next->pv=listeJ->next->classeJ.pv;
+                                    listeJ->next->positionJ.colonne=0;
+                                    listeJ->next->positionJ.ligne=0;
                                     listeJ->next->next = listeJ;
                                 }
                                 Jprenom=false;
@@ -1235,11 +1243,15 @@ void MENU(bool* play, Joueurs** listeJoueurs){
                                 al_play_sample(clik, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, 0);
                                 if (nbJ > 3) {
                                     listeJ->next->next->pv=listeJ->next->next->classeJ.pv;
+                                    listeJ->next->next->positionJ.colonne=19;
+                                    listeJ->next->next->positionJ.ligne=0;
                                     listeJ->next->next->next = iniJ(4);
                                     menu = 6;
                                 } else {
                                     menu = 7;
                                     listeJ->next->next->pv=listeJ->next->next->classeJ.pv;
+                                    listeJ->next->next->positionJ.colonne=19;
+                                    listeJ->next->next->positionJ.ligne=0;
                                     listeJ->next->next->next = listeJ;
                                 }
                                 Jclasse=false;
@@ -1447,6 +1459,8 @@ void MENU(bool* play, Joueurs** listeJoueurs){
                                 al_play_sample(clik, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, 0);
                                 menu = 7;
                                 listeJ->next->next->next->pv=listeJ->next->next->next->classeJ.pv;
+                                listeJ->next->next->next->positionJ.colonne=0;
+                                listeJ->next->next->next->positionJ.ligne=14;
                                 listeJ->next->next->next->next = listeJ;
                                 Jclasse=false;
                                 Jprenom=false;
