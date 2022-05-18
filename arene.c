@@ -54,6 +54,7 @@ void initialiserImages(Image* decor){
     decor->fleur = al_load_bitmap("../background/fleur.png");
     decor->cailloux = al_load_bitmap("../background/cailloux.png");
     decor->perso = al_load_bitmap("../background/Solaris0.png");
+    decor->Mars= al_load_bitmap("../background/Mars.png");
 }
 void initialiserTableau( int tab[LIGNES_TAB][COLONNES_TAB]){
     int  ligne,colonne;

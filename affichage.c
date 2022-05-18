@@ -132,7 +132,7 @@ void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int co
     int decors = 0;
     // affichage du fond
     al_clear_to_color(al_map_rgb(255, 255, 255));
-    al_draw_bitmap(decor.fond, 0, 0, 0);
+    al_draw_bitmap(decor.Mars, 0, 0, 0);
     affichageMatrice();
     // affichage du décor après lecture du tab Arene
     for (ligne = 0; ligne < LIGNES_TAB; ligne++) { // boucle sur les lignes

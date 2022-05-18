@@ -27,7 +27,7 @@
 #define CASE_VIDE 9999
 
 typedef struct {
-    ALLEGRO_BITMAP * rocher, *fond, *perso, *cailloux,*fleur, *meteor;
+    ALLEGRO_BITMAP * rocher, *fond, *perso, *cailloux,*fleur, *meteor, *Mars;
 }Image;
 
 #endif //PROJET2_JEU_H
