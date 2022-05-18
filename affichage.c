@@ -36,8 +36,34 @@ void affichagePorteeDeplacement(Case tabCase[LIGNES_TAB][COLONNES_TAB], int lign
                              tabCase[ligneSouris][colonneSouris].y + TAILLE_CASE - 4,
                              al_map_rgb(20, 20, 20));
 }
+int valeureAbsolue(int i, int j) {
+    if (i >= j) {
+        return i-j;
+    } else {
+        return j-i;
+    }
+}
 
-
+void affichagePorte(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligne, int colonne,int tabArene[LIGNES_TAB][COLONNES_TAB], int PMJ) {
+    for (int i = 0; i < LIGNES_TAB; ++i) {
+        for (int j = 0; j < COLONNES_TAB; ++j) {
+            if (valeureAbsolue(i, ligne) + valeureAbsolue(j,colonne) <= (PM_MAX-PMJ)) {
+                tabCase[i][j].deplacement = true;
+            } else {
+                tabCase[i][j].deplacement = false;
+            }
+        }
+    }
+    for (int i = 0; i < LIGNES_TAB; ++i) {
+        for (int j = 0; j < COLONNES_TAB; ++j) {
+            if ((tabCase[i][j].deplacement == true) && (tabArene[i][j] < CASE_OBSTACLE)) {
+                al_draw_filled_rectangle(tabCase[i][j].x + 3, tabCase[i][j].y + 3,
+                                         tabCase[i][j].x + TAILLE_CASE - 4, tabCase[i][j].y + TAILLE_CASE - 4,
+                                         al_map_rgba(100, 100, 100, 50));
+            }
+        }
+    }
+}
 void deplacementJoueur(Case tabCase[LIGNES_TAB][COLONNES_TAB], Coords tabChemin) {
     al_draw_filled_rectangle(tabCase[tabChemin.ligne][tabChemin.colonne].x + 3,
                              tabCase[tabChemin.ligne][tabChemin.colonne].y + 3,
@@ -83,11 +109,9 @@ void chargerAnimation(Joueurs *listeJ, ALLEGRO_BITMAP *ImPerso[]) {
 void dessinerPerso(ALLEGRO_BITMAP *anim[], int cmptImage, Coords positionJoueur) {
     al_draw_bitmap(anim[cmptImage], (100 * (positionJoueur.colonne)) + 80, (100 * (positionJoueur.ligne) - 50) + 135,
                    0);
-    printf("dessiner perso ok\n");
 }
 
 void afficherLesAutresJoueurs(Joueurs *listeJ, Joueurs *jActuel) {
-    printf("afficher Autres Joueurs\n");
     ALLEGRO_BITMAP *ImPerso[NB_IMAGES];
     Joueurs *tmp = listeJ;
     tmp=tmp->next;
@@ -150,6 +174,7 @@ void dessinerTout(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int c
                   int colonne, int tabArene[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX + 1],
                   Coords positionJoueur, ALLEGRO_BITMAP *anim[], int cmptImage, Joueurs *listeJ, Joueurs *jActuel) {
     dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ, jActuel);
+    affichagePorte(tabCase, jActuel->positionJ.ligne, jActuel->positionJ.colonne, tabArene, jActuel->pm);
     dessinerPerso(anim, cmptImage, positionJoueur);
     al_flip_display();
 
@@ -193,7 +218,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                        100) { // tant que l'on a pas atteint la case suivante on deplace le perso
                 dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ,
                             jActuel);
-                al_draw_bitmap(anim[compteurImage], x, (100 * (positionJoueur.ligne) - 50) + 135, 0);
+               al_draw_bitmap(anim[compteurImage], x, (100 * (positionJoueur.ligne) - 50) + 135, 0);
                 //al_draw_bitmap(perso, x, (100 * (positionJoueur.ligne) - 50) + 135, 0);
                 al_flip_display();
                 sleep(1);
@@ -238,6 +263,10 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
             }
         }
     }
+    printf("position joueur: [%d; %d]\n", jActuel->positionJ.ligne,jActuel->positionJ.colonne);
+    affichagePorte(tabCase, jActuel->positionJ.ligne, jActuel->positionJ.colonne , tabArene, jActuel->pm);// affichage de la portée
+    dessinerPerso(anim, compteurImage, jActuel->positionJ); // reaffichage du perso par dessus la portée pour qu'il soit visible
+    al_flip_display();
 }
 
 void destroy(Image decors, ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer, ALLEGRO_EVENT_QUEUE *queue,
@@ -278,9 +307,11 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     int ligneSouris = 0, colonneSouris = 0;
     int xSouris;
     int ySouris;
-    int i, ligne = 0, colonne = 0, PM = 0, decors = 0;
+    int i, ligne = 0, colonne = 0, decors = 0;
     int determinerChemin = 0;
     Coords positionFinale;
+    joueurActuel.pm=0; // init du PM joueur pour le modifier en fonction du deplacement --> (à faire dans init des joueurs)
+
 // init du timer
     srand(time(NULL));
     al_init();
@@ -311,6 +342,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     }
 
     chargerAnimation(listeJ, anim);
+
 
     // initialisation position joueu
     printf("jA position: [ %d ; %d]\n", joueurActuel.positionJ.ligne, joueurActuel.positionJ.colonne);
@@ -352,18 +384,17 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                 }
                 // variable pour determiner si le deplacement et possible ou non (cas d'un obstacle/ d'un PM> PM max)
                 determinerChemin = 0;
-
                 // on verifie que le joueur n'a pas atteint la position finale et n'as pas fait 3PM de deplacement
-                if (PM < PM_MAX && (joueurActuel.positionJ.colonne != positionFinale.colonne ||
+                if (joueurActuel.pm < PM_MAX && (joueurActuel.positionJ.colonne != positionFinale.colonne ||
                         joueurActuel.positionJ.ligne != positionFinale.ligne)) {
 // on va determiner le chemin si la position finale n'est pas atteinte et si le deplacement est possible
-                    while (determinerChemin == 0 && PM < PM_MAX &&
+                    while (determinerChemin == 0 && joueurActuel.pm < PM_MAX &&
                            (joueurActuel.positionJ.colonne != positionFinale.colonne ||
                                    joueurActuel.positionJ.ligne != positionFinale.ligne)) {
 
                         initialiserTabChemin(tabChemin);
                         // on determine le chemin a parcourir
-                        determinerChemin = determinerLeChemin(&(joueurActuel).positionJ, &PM, positionFinale, TabObstacle,
+                        determinerChemin = determinerLeChemin(&(joueurActuel).positionJ, &(joueurActuel).pm, positionFinale, TabObstacle,
                                                               tabChemin);
 
                         // on verifie que le tab chemin n'est pas vide si oui pas de deplacement effectué
@@ -371,21 +402,25 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                         }
                     }
                     // si le deplacement est possible et si le nb de PM n'est pas dépassé alors on va faire glisser le joueur sur la case cliquée
-                    if (determinerChemin == 0 && PM <= PM_MAX) {
+                    /*if (tabCase[ligneSouris][colonneSouris].deplacement == true) {
+                        joueurActuel.positionJ.ligne = ligneSouris;
+                        joueurActuel.positionJ.colonne = colonneSouris;
+                    }*/
+                    if (determinerChemin == 0 && joueurActuel.pm <= PM_MAX) {
                         afficherPerso(tabChemin, anim, tabCase, ligneSouris, colonneSouris, decor,
-                                      ligne, colonne, tabArene, PM, cmptimage, listeJ, &joueurActuel);
-
+                                      ligne, colonne, tabArene, joueurActuel.pm, cmptimage, listeJ, &joueurActuel);
                     }
                 }
                 // juste pour pouvoir tester sans prendre trop de temps je réinitialise ici les PM à 0 a chaque fois que j'ai atteint les 3PM
                 // mais ça sera à gerer dans le Tour Joueur plutôt
-                if (PM >= PM_MAX) {
-                    PM = 0;
+                if (joueurActuel.pm >= PM_MAX) {
+                    joueurActuel.pm = 0;
                 }
                 break;
             }
             case ALLEGRO_EVENT_TIMER: {
                 cmptimage = (cmptimage + 1) % NB_IMAGES;
+
                 break;
             }
         }

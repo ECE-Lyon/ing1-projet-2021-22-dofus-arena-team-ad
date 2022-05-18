@@ -38,4 +38,6 @@ void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int co
 void dessinerPerso(ALLEGRO_BITMAP *anim[],int cmptImage, Coords positionJoueur );
 void chargerAnimation(Joueurs* listeJ, ALLEGRO_BITMAP * ImPerso[]);
 void afficherLesAutresJoueurs( Joueurs* listeJ, Joueurs *jActuel);
+int valeureAbsolue(int i, int j);
+void affichagePorte(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligne, int colonne,int tabArene[LIGNES_TAB][COLONNES_TAB], int PMJ);
 #endif //PROJET2_AFFICHAGE_H
