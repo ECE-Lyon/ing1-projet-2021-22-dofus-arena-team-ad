@@ -12,9 +12,9 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h>
-#define TAILLE_CASE 47
-#define X_TAB 40
-#define Y_TAB 70
+#define TAILLE_CASE 100
+#define X_TAB 80
+#define Y_TAB 135
 #define largeurIm 50 // caractéristiques de l'image
 #define hauteurIm 70
 
@@ -27,7 +27,7 @@
 #define CASE_VIDE 9999
 
 typedef struct {
-    ALLEGRO_BITMAP * rocher, *fond, *perso, *cailloux,*fleur, *meteor, *Mars;
+    ALLEGRO_BITMAP * rocher, *Soleil, *perso, *cailloux,*fleur, *meteor, *Mars, *sort1, *sort2, *sort3;
 }Image;
 
 #endif //PROJET2_JEU_H

@@ -48,13 +48,16 @@ void construireLarene(int ClasseDuJoueur,int tabArene[LIGNES_TAB][COLONNES_TAB])
     }
 }
 void initialiserImages(Image* decor){
-    decor->fond= al_load_bitmap("../background/fond.png");
+    decor->Soleil= al_load_bitmap("../background/Soleil.png");
     decor->rocher = al_load_bitmap("../background/rocher.png");
     decor->meteor = al_load_bitmap("../background/meteor.png");
     decor->fleur = al_load_bitmap("../background/fleur.png");
     decor->cailloux = al_load_bitmap("../background/cailloux.png");
     decor->perso = al_load_bitmap("../background/Solaris0.png");
     decor->Mars= al_load_bitmap("../background/Mars.png");
+    decor->sort1 = al_load_bitmap("../Image/feu.png");
+    decor->sort2 = al_load_bitmap("../Image/vent.png");
+   decor->sort3 = al_load_bitmap("../Image/flaqueorageuse.png");
 }
 void initialiserTableau( int tab[LIGNES_TAB][COLONNES_TAB]){
     int  ligne,colonne;

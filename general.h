@@ -25,11 +25,10 @@
 #define X_TAB 80
 #define Y_TAB 135
 #define CASE_VIDE 9999
-
+//#define BLANC al_map_rgb (255, 255, 255)
 
 #ifndef PROJET_GENERAL_H
 #define PROJET_GENERAL_H
-
 /////////////////////////////////////////STRUCTURES////////////////////////////////////////////////
 
 //DEPLACEMENT
@@ -46,7 +45,7 @@ typedef struct{
 //PERSONNAGES
 
 typedef struct{
-    char nom[10];
+    char nom[100];
     int degat, PA, portee, timestour, timespart;
     float pourEchec;
 }Sorts;
@@ -123,5 +122,5 @@ void affichageG(ALLEGRO_BITMAP* arene, ALLEGRO_BITMAP *sort1, ALLEGRO_BITMAP*sor
 void affichageEchape(rectangle rectechape, rectangle rectfond, ALLEGRO_FONT* miniOrbitron, ALLEGRO_FONT* Orbitron);
 void actuaRectEchape(rectangle rectreprendre, rectangle rectExit, ALLEGRO_FONT* miniOrbitron);
 void actuaRect(rectangle rectNext, ALLEGRO_FONT* miniOrbitron);
-
+void afficherTableau (int tab[LIGNES_TAB][COLONNES_TAB]);
 #endif //PROJET_GENERAL_H
