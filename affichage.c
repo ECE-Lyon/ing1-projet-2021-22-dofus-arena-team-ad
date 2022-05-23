@@ -34,7 +34,7 @@ void affichagePorteeDeplacement(Case tabCase[LIGNES_TAB][COLONNES_TAB], int lign
     al_draw_filled_rectangle(tabCase[ligneSouris][colonneSouris].x + 3, tabCase[ligneSouris][colonneSouris].y + 3,
                              tabCase[ligneSouris][colonneSouris].x + TAILLE_CASE - 4,
                              tabCase[ligneSouris][colonneSouris].y + TAILLE_CASE - 4,
-                             al_map_rgb(20, 20, 20));
+                             al_map_rgba(20, 20, 20,200));
 }
 
 int valeureAbsolue(int i, int j) {
@@ -189,19 +189,19 @@ void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int co
             switch (decors) {
                 case 3: {
 
-                    al_draw_bitmap(decor.rocher, (100 * colonne) + 80, ((100 * ligne) - 10) + 135, 0);
+                    al_draw_bitmap(decor.rocher, (float)(100 * colonne) + 80, (float)((100 * ligne) - 10) + 135, 0);
                     break;
                 }
                 case 4: {
-                    al_draw_bitmap(decor.meteor, (100 * colonne) + 80, ((100 * ligne) - 10) + 135, 0);
+                    al_draw_bitmap(decor.meteor, (float)(100 * colonne) + 80, (float)((100 * ligne) - 10) + 135, 0);
                     break;
                 }
                 case 5: {
-                    al_draw_bitmap(decor.cailloux, (100 * colonne) + 80, ((100 * ligne) + 20) + 135, 0);
+                    al_draw_bitmap(decor.cailloux, (float)(100 * colonne) + 80, (float)((100 * ligne) + 20) + 135, 0);
                     break;
                 }
                 case 6 : {
-                    al_draw_bitmap(decor.fleur, (100 * colonne) + 80, ((100 * ligne) - 50) + 135, 0);
+                    al_draw_bitmap(decor.fleur, (float)(100 * colonne) + 80, (float)((100 * ligne) - 50) + 135, 0);
                     break;
                 }
                 default: {
