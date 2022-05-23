@@ -288,10 +288,10 @@ void MENU(bool* play, Joueurs** listeJoueurs){
     ALLEGRO_SAMPLE* clik = NULL;
     ALLEGRO_SAMPLE* TitleTheme = NULL;
     ALLEGRO_SAMPLE_INSTANCE* TitleThemeInstance = NULL;
-    ALLEGRO_FONT* Megrim = al_load_ttf_font("../Font/Megrim-Regular.ttf", 100, 0);
-    ALLEGRO_FONT* Orbitron = al_load_ttf_font("../Font/Orbitron.ttf", 70, 0);
-    ALLEGRO_FONT* miniOrbitron = al_load_ttf_font("../Font/Orbitron.ttf", 30, 0);
-    ALLEGRO_FONT* microOrbitron = al_load_ttf_font("../Font/Orbitron.ttf", 15, 0);
+    ALLEGRO_FONT* Megrim = al_load_ttf_font("../Font/Megrim-Regular.ttf", 200, 0);
+    ALLEGRO_FONT* Orbitron = al_load_ttf_font("../Font/Orbitron.ttf", TAILLE_POLICE_MAX, 0);
+    ALLEGRO_FONT* miniOrbitron = al_load_ttf_font("../Font/Orbitron.ttf", TAILLE_POLICE_MAX/2, 0);
+    ALLEGRO_FONT* microOrbitron = al_load_ttf_font("../Font/Orbitron.ttf", TAILLE_POLICE_MAX/4, 0);
     ALLEGRO_BITMAP* background = al_load_bitmap("../Image/background.png");
     ALLEGRO_BITMAP* TERRA = al_load_bitmap("../Image/TERRA.png");
     ALLEGRO_BITMAP* MARTIAN = al_load_bitmap("../Image/MARTIAN.png");
@@ -329,7 +329,8 @@ void MENU(bool* play, Joueurs** listeJoueurs){
 
     al_attach_sample_instance_to_mixer(TitleThemeInstance, al_get_default_mixer());
 
-
+    al_set_new_display_flags(ALLEGRO_RESIZABLE);
+    al_set_new_display_option(ALLEGRO_SINGLE_BUFFER,1,ALLEGRO_REQUIRE);
     display = al_create_display(LARGEUR, HAUTEUR);
     assert(display != NULL);
     al_clear_to_color(al_map_rgb(0, 0, 0));
@@ -584,7 +585,7 @@ void MENU(bool* play, Joueurs** listeJoueurs){
                         break;
 
                     case ALLEGRO_EVENT_TIMER:
-                        affichageMenu0(background, rectNom1, rectNom2, Megrim, Orbitron);
+
 
                         affichageRectangle(SOLARIS,TERRA,MARTIAN,SATURNA, peindrerect, menu ,rectNom1, rectNom2, mini,Carre1,Carre2,Carre3,Carre4, NomClasse1, NomClasse2,NomClasse3,
                                            NomClasse4, mini2, Orbitron, miniOrbitron, nbJ);

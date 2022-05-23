@@ -25,6 +25,7 @@
 #define X_TAB 80
 #define Y_TAB 135
 #define CASE_VIDE 9999
+#define TAILLE_POLICE_MAX 120
 //#define BLANC al_map_rgb (255, 255, 255)
 
 #ifndef PROJET_GENERAL_H
