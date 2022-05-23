@@ -63,6 +63,7 @@ typedef struct J{
     char nom[NBLETTRE];
     int pv, pa, pm, numJ;
     struct J* next;
+    ALLEGRO_BITMAP * image;
     classe classeJ;
     Coords positionJ;
 }Joueurs;
