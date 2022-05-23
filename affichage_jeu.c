@@ -1,6 +1,6 @@
 #include "general.h"
 
-void affichageMenuPerso(ALLEGRO_BITMAP *sort1, ALLEGRO_BITMAP*sort2, ALLEGRO_BITMAP*sort3, rectangle rectNext, ALLEGRO_FONT* miniOrbitron,
+void affichageMenuPerso2(ALLEGRO_BITMAP *sort1, ALLEGRO_BITMAP*sort2, ALLEGRO_BITMAP*sort3, rectangle rectNext, ALLEGRO_FONT* miniOrbitron,
                         ALLEGRO_FONT* Orbitron,
                         ALLEGRO_COLOR BLANC, Joueurs JA){
     al_draw_text(Orbitron, BLANC,1450,50, ALLEGRO_ALIGN_RIGHT, JA.nom);
@@ -40,7 +40,7 @@ miniOrbitron,
                 ALLEGRO_FONT* Orbitron,
                 ALLEGRO_COLOR BLANC, Joueurs JA){
     affichageArene(arene);
-    affichageMenuPerso(sort1, sort2, sort3, rectNext, miniOrbitron, Orbitron, BLANC, JA);
+    affichageMenuPerso2(sort1, sort2, sort3, rectNext, miniOrbitron, Orbitron, BLANC, JA);
     affichageMatrice();
     al_flip_display();
 }

@@ -59,7 +59,7 @@ int determinerLeChemin(Coords *joueurPI, int *PM, Coords PF, int tabObstacle[LIG
                        Coords tabChemin[PM_MAX + 1]) {
     bool depHorizon = true;  // true si le deplacement est sur les colonnes, false si lignes
     Coords positionInitiale;  // enregistrer la position initiale du joueur dans le cas ou le deplacement n'a pas lieu
-
+    int nbObstaclesDuDeplacement=0;
     // si l'ecart est plus grand que le nb de deplacement max --> on ne peut pas se deplacer
     if (abs(PF.colonne - joueurPI->colonne) > PM_MAX || abs(PF.ligne - joueurPI->ligne)>PM_MAX) {
         return 1;
@@ -103,6 +103,7 @@ int determinerLeChemin(Coords *joueurPI, int *PM, Coords PF, int tabObstacle[LIG
             else {
                 printf("IL Y A UN OBSTACLE\n");
                 obstacle = true;
+                nbObstaclesDuDeplacement++ ;
                 (*joueurPI)= tabChemin[indiceTab-1]; //  le joueur retourne sur la case precedente
                 *PM-=1; // il n'y a pas de deplacement comptabilisé
             }
@@ -122,6 +123,9 @@ int determinerLeChemin(Coords *joueurPI, int *PM, Coords PF, int tabObstacle[LIG
             joueurPI->colonne = tabChemin[indiceTab - 1].colonne;
             joueurPI->ligne = tabChemin[indiceTab - 1].ligne;
         } else {
+            if (nbObstaclesDuDeplacement>=3){ // si le joueur rencontre 3 obstacles ou plus alors pas de deplacement possible
+                return 1;
+            }
             if (ecart == 0) { // on réinitialise tout (position joueur et tabChemin) / on cherche un nouveau chemin
                 joueurPI->colonne = tabChemin[0].colonne;
                 joueurPI->ligne = tabChemin[0].ligne;

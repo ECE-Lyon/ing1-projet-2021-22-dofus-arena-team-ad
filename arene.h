@@ -14,6 +14,5 @@ void initialiserTableau( int tab[LIGNES_TAB][COLONNES_TAB]);
 void initialiserTabChemin(Coords tabChemin[PM_MAX+1]);
 void intialisationArene(int tabArene[LIGNES_TAB][COLONNES_TAB],
                         int TabObstacle[LIGNES_TAB][COLONNES_TAB]);
-void afficherTableau (int tab[LIGNES_TAB][COLONNES_TAB]);
 
 #endif //PROJET2_ARENE_H

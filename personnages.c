@@ -33,7 +33,6 @@ void InitialiserClass(classe* Solaris, classe* Terra, classe* Martian, classe* S
 
 void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Martian, classe* Saturna) {
 
-    strcpy(tabsort[0].nom, "Eblouissement");
 
     tabsort[0].degat = 0;
     tabsort[0].PA = -5;
@@ -41,9 +40,9 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[0].pourEchec = 0.3;
     tabsort[0].timestour = 1;
     tabsort[0].timespart =  1;
+    strcpy(tabsort[0].nom, "Eblouissement");
 
     Solaris->sort[0] = tabsort[0];
-
     strcpy(tabsort[1].nom, "Scintillement");
     tabsort[1].degat = -5;
     tabsort[1].PA = -5;
