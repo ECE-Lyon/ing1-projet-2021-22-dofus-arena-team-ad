@@ -707,4 +707,3 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     }
     destroy(decor, display, timer, queue, anim);
 }
-//fin de l affichage
