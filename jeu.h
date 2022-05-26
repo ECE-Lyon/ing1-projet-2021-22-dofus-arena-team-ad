@@ -26,8 +26,5 @@
 #define LIGNES_TAB 15
 #define CASE_VIDE 9999
 
-typedef struct {
-    ALLEGRO_BITMAP * rocher, *Soleil, *perso, *cailloux,*fleur, *meteor, *Mars, *sort1, *sort2, *sort3;
-}Image;
 
 #endif //PROJET2_JEU_H

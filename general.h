@@ -59,12 +59,17 @@ typedef struct{
     Sorts sort[4];
 }classe;
 
+typedef struct {
+    ALLEGRO_BITMAP * rocher, *Soleil, *perso, *cailloux,*fleur, *meteor, *Mars, *sort1, *sort2, *sort3, *imJ;
+    char nom[100];
+}Image;
+
 typedef struct J{
     bool Eblouissement, lava; //à ini en false
     char nom[NBLETTRE];
     int pv, pa, pm, numJ;
     struct J* next;
-    ALLEGRO_BITMAP * image;
+    ALLEGRO_BITMAP *image;
     classe classeJ;
     Coords positionJ;
 }Joueurs;

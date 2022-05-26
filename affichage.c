@@ -34,7 +34,7 @@ void affichagePorteeDeplacement(Case tabCase[LIGNES_TAB][COLONNES_TAB], int lign
     al_draw_filled_rectangle(tabCase[ligneSouris][colonneSouris].x + 3, tabCase[ligneSouris][colonneSouris].y + 3,
                              tabCase[ligneSouris][colonneSouris].x + TAILLE_CASE - 4,
                              tabCase[ligneSouris][colonneSouris].y + TAILLE_CASE - 4,
-                             al_map_rgba(20, 20, 20,200));
+                             al_map_rgba(20, 20, 20, 200));
 }
 
 int valeureAbsolue(int i, int j) {
@@ -76,70 +76,73 @@ void deplacementJoueur(Case tabCase[LIGNES_TAB][COLONNES_TAB], Coords tabChemin)
                              al_map_rgba(0, 128, 0, 150));
 }
 
-void InitImageJ(Joueurs *listeJ, ALLEGRO_BITMAP *ImPerso) {
+void chargerAnimation(Joueurs *listeJ, ALLEGRO_BITMAP *ImPerso[]) {
     // charger l'animation
     char nom[256];
-    while (listeJ->next !=listeJ){
-        switch (listeJ->classeJ.numClasse) {
-            case 0: {
-                listeJ->image= al_load_bitmap("../background/Solaris%d.png");
-                break;
+    for (int j = 0; j < NB_IMAGES; j++) {
+            switch (listeJ->classeJ.numClasse) {
+                case 0: {
+                    sprintf(nom, "../background/Solaris%d.png", j);
+                    break;
+                }
+                case 3: {
+                    sprintf(nom, "../background/Saturna%d.png", j);
+                    break;
+                }
+                case 2: {
+                    sprintf(nom, "../background/Martian%d.png", j);
+                    break;
+                }
+                case 1: {
+                    sprintf(nom, "../background/Terra%d.png", j);
+                    break;
+                }
+                default: {
+                    printf("erreur classe joueur\n");
+                    break;
+                }
             }
-            case 3: {
-                listeJ->image= al_load_bitmap("../background/Saturna%d.png");
-                break;
-            }
-            case 2: {
-                listeJ->image= al_load_bitmap("../background/Martian%d.png");
-
-                break;
-            }
-            case 1: {
-                listeJ->image= al_load_bitmap("../background/Terra%d.png");
-
-                break;
-            }
-            default: {
-                printf("erreur classe joueur\n");
-                break;
+            ImPerso[j] = al_load_bitmap(nom);
+            if (!ImPerso[j]) {
+                printf("pas d'image\n");
             }
         }
     }
-}
 
-void dessinerPerso(ALLEGRO_BITMAP *imageJ, int cmptImage, int positionJoueurLigne, int positionJoueurColonne,
-                   Joueurs joueur) {
+void dessinerPerso(ALLEGRO_BITMAP *anim[], int cmptImage, int positionJoueurLigne, int positionJoueurColonne,Joueurs joueur){
     switch (joueur.classeJ.numClasse) {
         case 0: {
-            al_draw_scaled_bitmap(imageJ, 0, 0, 157, 199, ((100 * (positionJoueurColonne)) + 80) - 20,
+            al_draw_scaled_bitmap(anim[cmptImage], 0, 0, 157, 199, ((100 * (positionJoueurColonne)) + 80) - 20,
                                   (100 * (positionJoueurLigne) - 50) + 135, 140, 180, 0);
+            printf("dessiner Tout\n");
             break;
         }
         case 1: {
-            al_draw_scaled_bitmap(imageJ, 0, 0, 303, 338, ((100 * (positionJoueurColonne)) + 80),
+            al_draw_scaled_bitmap(anim[cmptImage], 0, 0, 303, 338, ((100 * (positionJoueurColonne)) + 80),
                                   (100 * (positionJoueurLigne) - 50) + 135, 120, 150, 0);
             break;
         }
         case 2: {
-            al_draw_scaled_bitmap(imageJ, 0, 0, 199, 157, (100 * (positionJoueurColonne)) + 80,
+            al_draw_scaled_bitmap(anim[cmptImage], 0, 0, 199, 157, (100 * (positionJoueurColonne)) + 80,
                                   (100 * (positionJoueurLigne) - 30) + 135, 180, 140, 0);
             break;
         }
         case 3 : {
-            al_draw_scaled_bitmap(imageJ, 0, 0, 157, 199, ((100 * (positionJoueurColonne)) + 80) - 20,
+            al_draw_scaled_bitmap(anim[cmptImage], 0, 0, 157, 199, ((100 * (positionJoueurColonne)) + 80) - 20,
                                   (100 * (positionJoueurLigne) - 80) + 135, 160, 200, 0);
             break;
         }
     }
 }
 
-void afficherLesAutresJoueurs(Joueurs *listeJ, Joueurs *jActuel, ALLEGRO_BITMAP* ImPerso) {
+void afficherLesAutresJoueurs(Joueurs *listeJ, Joueurs *jActuel) {
+    ALLEGRO_BITMAP *ImPerso[NB_IMAGES];
     Joueurs *tmp = listeJ;
     tmp = tmp->next;
     while (tmp != listeJ) {
         if ((jActuel->positionJ.ligne != tmp->positionJ.ligne) ||
             (jActuel->positionJ.colonne != tmp->positionJ.colonne)) {
-            InitImageJ(tmp, ImPerso);
+            chargerAnimation(tmp, ImPerso);
             dessinerPerso(ImPerso, 0, tmp->positionJ.ligne, tmp->positionJ.colonne, *tmp);
         }
         tmp = tmp->next;
@@ -171,7 +174,7 @@ void dessinerFond(int numClasseJA, Image decor) {
 void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, Image decor, int ligne,
                  int colonne,
                  int tabArene[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX + 1], Joueurs *listeJ,
-                 Joueurs *jActuel, ALLEGRO_BITMAP* imageJ) {
+                 Joueurs *jActuel)  {
     int decors = 0;
     // affichage du fond
     al_clear_to_color(al_map_rgb(255, 255, 255));
@@ -186,19 +189,19 @@ void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int co
             switch (decors) {
                 case 3: {
 
-                    al_draw_bitmap(decor.rocher, (float)(100 * colonne) + 80, (float)((100 * ligne) - 10) + 135, 0);
+                    al_draw_bitmap(decor.rocher, (float) (100 * colonne) + 80, (float) ((100 * ligne) - 10) + 135,0);
                     break;
                 }
                 case 4: {
-                    al_draw_bitmap(decor.meteor, (float)(100 * colonne) + 80, (float)((100 * ligne) - 10) + 135, 0);
+                    al_draw_bitmap(decor.meteor, (float) (100 * colonne) + 80, (float) ((100 * ligne) - 10) + 135,0);
                     break;
                 }
                 case 5: {
-                    al_draw_bitmap(decor.cailloux, (float)(100 * colonne) + 80, (float)((100 * ligne) + 20) + 135, 0);
+                    al_draw_bitmap(decor.cailloux, (float) (100 * colonne) + 80, (float) ((100 * ligne) + 20) + 135,0);
                     break;
                 }
                 case 6 : {
-                    al_draw_bitmap(decor.fleur, (float)(100 * colonne) + 80, (float)((100 * ligne) - 50) + 135, 0);
+                    al_draw_bitmap(decor.fleur, (float) (100 * colonne) + 80, (float) ((100 * ligne) - 50) + 135,0);
                     break;
                 }
                 default: {
@@ -207,7 +210,7 @@ void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int co
             }
         }
     }
-    afficherLesAutresJoueurs(listeJ, jActuel, imageJ);
+    afficherLesAutresJoueurs(listeJ, jActuel);
 
 
 }
@@ -222,7 +225,7 @@ void affichageMenuPerso(ALLEGRO_BITMAP *sort1, ALLEGRO_BITMAP *sort2, ALLEGRO_BI
     al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.30), ALLEGRO_ALIGN_RIGHT, "PA : ");
     al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.30), ALLEGRO_ALIGN_RIGHT, "%d", JA.pa);
     al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.41), ALLEGRO_ALIGN_RIGHT, "PM : ");
-    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.41), ALLEGRO_ALIGN_RIGHT, "%d", PM_MAX - (JA.pm));
+    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.41), ALLEGRO_ALIGN_RIGHT, "%d",PM_MAX - (JA.pm));
     al_draw_bitmap(sort1, LARGEUR * (0.72), HAUTEUR * (0.538), ALLEGRO_ALIGN_RIGHT);
     al_draw_bitmap(sort2, LARGEUR * (0.82), HAUTEUR * (0.538), ALLEGRO_ALIGN_RIGHT);
     al_draw_bitmap(sort3, LARGEUR * (0.92), HAUTEUR * (0.538), ALLEGRO_ALIGN_RIGHT);
@@ -232,20 +235,20 @@ void affichageMenuPerso(ALLEGRO_BITMAP *sort1, ALLEGRO_BITMAP *sort2, ALLEGRO_BI
 }
 
 void dessinerTout(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, Image decor, int ligne,
-                  int colonne, int tabArene[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX + 1],
-                  Coords positionJoueur, ALLEGRO_BITMAP *imageJ, int cmptImage, Joueurs *listeJ, Joueurs *jActuel,
+             int colonne, int tabArene[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX + 1],
+             Coords positionJoueur, ALLEGRO_BITMAP *anim[], int cmptImage, Joueurs *listeJ, Joueurs *jActuel,
         //modifs 21/05
-                  rectangle rectNext, ALLEGRO_FONT *miniOrbitron, ALLEGRO_FONT *Orbitron, ALLEGRO_COLOR BLANC) {
-    dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ, jActuel, imageJ);
+             rectangle rectNext, ALLEGRO_FONT *miniOrbitron, ALLEGRO_FONT *Orbitron, ALLEGRO_COLOR BLANC) {
+    dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ, jActuel);
     //modifs 21/05
     affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC, *jActuel);
     affichagePorte(tabCase, jActuel->positionJ.ligne, jActuel->positionJ.colonne, tabArene, jActuel->pm);
-    dessinerPerso(imageJ, cmptImage, positionJoueur.ligne, positionJoueur.colonne, *jActuel);
+    dessinerPerso(anim, cmptImage, positionJoueur.ligne, positionJoueur.colonne, *jActuel);
     al_flip_display();
 
 }
 
-void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *imageJ, Case tabCase[LIGNES_TAB][COLONNES_TAB],
+void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case tabCase[LIGNES_TAB][COLONNES_TAB],
                    int ligneSouris, int colonneSouris, Image decor, int ligne, int colonne,
                    int tabArene[LIGNES_TAB][COLONNES_TAB], int PMJoueur, int compteurImage, Joueurs *listeJ,
                    Joueurs *jActuel,
@@ -275,7 +278,8 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *imageJ, Case ta
         if (positionFinale.colonne == positionJoueur.colonne && positionJoueur.ligne == positionFinale.ligne) {
             printf("position atteinte\n");
             dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
-                         positionJoueur, imageJ, compteurImage, listeJ, jActuel, rectNext, miniOrbitron, Orbitron, BLANC);
+                         positionJoueur, anim, compteurImage, listeJ, jActuel, rectNext, miniOrbitron, Orbitron,
+                         BLANC);
         }
 
         // on va verifier à chaque fois que le perso bouge son placeement par rapport a la position finale ( deplacement horizontal / vertical...)
@@ -284,14 +288,14 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *imageJ, Case ta
             while (x < ((100 * (positionJoueur.colonne)) + 80) +
                        100) { // tant que l'on a pas atteint la case suivante on deplace le perso
                 dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ,
-                            jActuel, imageJ);
-                dessinerPerso(imageJ, compteurImage, positionJoueur.ligne, (x - 80) / 100, *jActuel);
+                            jActuel);
+                dessinerPerso(anim, compteurImage, positionJoueur.ligne, (x - 80) / 100, *jActuel);
                 //al_draw_bitmap(perso, x, (100 * (positionJoueur.ligne) - 50) + 135, 0);
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
                 sleep(1);
-                x += 200; // on l'affiche tous les 150 pixels (effet glissement)
+                x += 150; // on l'affiche tous les 150 pixels (effet glissement)
             }
         }
 
@@ -299,58 +303,59 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *imageJ, Case ta
             int x = (100 * (positionJoueur.colonne)) + 80;
             while (x > ((100 * (positionJoueur.colonne)) + 80) - 100) {
                 dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ,
-                            jActuel, imageJ);
-                dessinerPerso(imageJ, compteurImage, positionJoueur.ligne, (x - 80) / 100, *jActuel);
+                            jActuel);
+                dessinerPerso(anim, compteurImage, positionJoueur.ligne, (x - 80) / 100, *jActuel);
                 //al_draw_scaled_bitmap(anim[compteurImage], 0, 0, 157, 199, x, (100 * (positionJoueur.ligne) - 50) + 135 , 140, 180, 0);
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
                 sleep(1);
-                x -= 200;
+                x -= 150;
             }
         }
         if (positionIntermediaire.ligne > positionJoueur.ligne) {
             int y = (100 * (positionJoueur.ligne) - 50) + 135;
             while (y < ((100 * (positionJoueur.ligne) - 50) + 135) + 100) {
                 dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ,
-                            jActuel, imageJ);
+                            jActuel);
 //               // al_draw_scaled_bitmap(anim[compteurImage], 0, 0, 157, 199, ((100 * (positionJoueur.colonne)) + 80)-20, y , 140, 180, 0);
-                dessinerPerso(imageJ, compteurImage, ((y + 50) / 100) - 135, positionJoueur.colonne, *jActuel);
+                dessinerPerso(anim, compteurImage, ((y + 50) / 100) - 135, positionJoueur.colonne, *jActuel);
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
                 sleep(1);
-                y += 200;
+                y += 150;
             }
         }
         if (positionIntermediaire.ligne < positionJoueur.ligne) {
             int y = (100 * (positionJoueur.ligne) - 50) + 135;
             while (y > ((100 * (positionJoueur.ligne) - 50) + 135) - 100) {
                 dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ,
-                            jActuel, imageJ);
+                            jActuel);
 //              al_draw_bitmap(anim[compteurImage], (100 * (positionJoueur.colonne)) + 80, y, 0);
                 //al_draw_scaled_bitmap(anim[compteurImage], 0, 0, 157, 199, ((100 * (positionJoueur.colonne)) + 80)-20, y , 140, 180, 0);
-                dessinerPerso(imageJ, compteurImage, ((y + 50) / 100) - 135, positionJoueur.colonne, *jActuel);
+                dessinerPerso(anim, compteurImage, ((y + 50) / 100) - 135, positionJoueur.colonne, *jActuel);
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
                 sleep(1);
-                y -= 200;
+                y -= 150;
             }
         }
     }
     printf("position joueur: [%d; %d]\n", jActuel->positionJ.ligne, jActuel->positionJ.colonne);
     affichagePorte(tabCase, jActuel->positionJ.ligne, jActuel->positionJ.colonne, tabArene,
                    jActuel->pm);// affichage de la portée
-    dessinerPerso(imageJ, compteurImage, jActuel->positionJ.ligne, jActuel->positionJ.colonne,
+    dessinerPerso(anim, compteurImage, jActuel->positionJ.ligne, jActuel->positionJ.colonne,
                   *jActuel); // reaffichage du perso par dessus la portée pour qu'il soit visible
     al_flip_display();
 }
 
 void destroy(Image decors, ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer, ALLEGRO_EVENT_QUEUE *queue,
-             ALLEGRO_BITMAP *imageJ) {
-
-        al_destroy_bitmap(imageJ);
+             ALLEGRO_BITMAP *anim[NB_IMAGES]) {
+    for (int i = 0; i < NB_IMAGES; i++) {
+        al_destroy_bitmap(anim[i]);
+    }
     al_destroy_display(display);
     al_destroy_timer(timer);
     al_destroy_bitmap(decors.perso);
@@ -372,7 +377,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     ALLEGRO_DISPLAY *display = NULL;
     ALLEGRO_EVENT_QUEUE *queue = NULL;
     ALLEGRO_EVENT event;
-    ALLEGRO_BITMAP *imageJ;
+    ALLEGRO_BITMAP * anim[NB_IMAGES];
     Joueurs joueurActuel;
     joueurActuel = *listeJ;
 
@@ -423,6 +428,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 
 // chargement des images
     initialiserImages(&decor);
+
 // init et installations
     display = al_create_display(ECRAN_LONGUEUR, ECRAN_LARGEUR);
     timer = al_create_timer(1.0 / 60.0);
@@ -441,7 +447,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
         yCase += TAILLE_CASE;
     }
 
-    InitImageJ(listeJ, imageJ);
+    chargerAnimation(listeJ, anim);
 
     // modif init des classes joueurs + sorts 21/05
     classe Solaris;
@@ -499,13 +505,11 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     printf("jA position: [ %d ; %d]\n", joueurActuel.positionJ.ligne, joueurActuel.positionJ.colonne);
     printf("j2 position: [%d ; %d]\n", listeJ->next->positionJ.ligne, listeJ->next->positionJ.colonne);
     cmptimage = 0;
-
     al_start_timer(timer);
-
     // on dessine la Map et les persos une première fois
     dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
                  joueurActuel.positionJ,
-                 imageJ, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
+                anim, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
 // mise en place de la boucle d'evenements
     while (!end) {
         al_wait_for_event(queue, &event);
@@ -541,6 +545,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 
                 //pour detecter le clic si on a cliquer sur escape
                 if (echape) {
+
                     if (hitBoxR(rectreprendre, event.mouse.x, event.mouse.y)) {
                         al_play_sample(clik, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, 0);
                         echape = false;
@@ -562,10 +567,10 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 
                 // debut de determiner le chemin --> DEPLACEMENT
                 for (int i = 0; i < LIGNES_TAB; ++i) {
-                    if ((float) tabCase[i][0].y<(float) ySouris && (float) ySouris>(float)tabCase[i][0].y +
-                                                                                          TAILLE_CASE) {
+                    if ( tabCase[i][0].y< ySouris && ySouris>tabCase[i][0].y +TAILLE_CASE) {
                         ligneSouris = i;
-                        positionFinale.ligne = i;
+                        positionFinale.ligne = i+1;
+                        printf("ligneF:%d", positionFinale.ligne);
                     }
                 }
                 for (int j = 0; j < COLONNES_TAB; ++j) {
@@ -601,7 +606,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                         joueurActuel.positionJ.colonne = colonneSouris;
                     }*/
                     if (determinerChemin == 0 && joueurActuel.pm <= PM_MAX) {
-                        afficherPerso(tabChemin, imageJ, tabCase, ligneSouris, colonneSouris, decor,
+                        afficherPerso(tabChemin, anim, tabCase, ligneSouris, colonneSouris, decor,
                                       ligne, colonne, tabArene, joueurActuel.pm, cmptimage, listeJ, &joueurActuel,
                                       rectNext, miniOrbitron, Orbitron, BLANC);
                     }
@@ -616,8 +621,8 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 
                 //modifs 22/05
 
-            case ALLEGRO_EVENT_MOUSE_AXES: {
-// afficher le nom du sort en fonction du sort cliqué
+           case ALLEGRO_EVENT_MOUSE_AXES: {
+    // afficher le nom du sort en fonction du sort cliqué
                 if (event.mouse.x >= LARGEUR * (0.72) && event.mouse.x <= LARGEUR * (0.72) + 100 &&
                     event.mouse.y >= HAUTEUR * (0.538) &&
                     event.mouse.y <= HAUTEUR * (0.538) + 100) {
@@ -625,7 +630,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                     al_draw_text(Megrim, BLANC, 800, 600, ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[0].nom);
                     dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
                                  joueurActuel.positionJ,
-                                 imageJ, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
+                                 anim, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
                 }
 
                 if (event.mouse.x >= LARGEUR * (0.82) && event.mouse.x <= LARGEUR * (0.82) + 100 &&
@@ -634,7 +639,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                     al_draw_text(Megrim, BLANC, 1100, 600, ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[1].nom);
                     dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
                                  joueurActuel.positionJ,
-                                 imageJ, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
+                                 anim, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
 
                 }
                 if (event.mouse.x >= LARGEUR * (0.92) && event.mouse.x <= LARGEUR * (0.92) + 100 &&
@@ -644,7 +649,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                     al_draw_text(Megrim, BLANC, 1250, 600, ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[2].nom);
                     dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
                                  joueurActuel.positionJ,
-                                 imageJ, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
+                                 anim, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
 
                 }
 
@@ -701,5 +706,5 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 
 
     }
-    destroy(decor, display, timer, queue, imageJ);
+    destroy(decor, display, timer, queue, anim);
 }
