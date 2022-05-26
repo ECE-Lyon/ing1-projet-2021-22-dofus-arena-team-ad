@@ -290,7 +290,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *imageJ, Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                sleep(1);
+                Sleep(1);
                 x += 200; // on l'affiche tous les 150 pixels (effet glissement)
             }
         }
@@ -305,7 +305,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *imageJ, Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                sleep(1);
+                Sleep(1);
                 x -= 200;
             }
         }
@@ -319,7 +319,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *imageJ, Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                sleep(1);
+                Sleep(1);
                 y += 200;
             }
         }
@@ -334,7 +334,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *imageJ, Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                sleep(1);
+                Sleep(1);
                 y -= 200;
             }
         }
@@ -425,6 +425,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     initialiserImages(&decor);
 // init et installations
     display = al_create_display(ECRAN_LONGUEUR, ECRAN_LARGEUR);
+    al_set_window_position(display, 0, 0);
     timer = al_create_timer(1.0 / 60.0);
     queue = al_create_event_queue();
     al_register_event_source(queue, al_get_display_event_source(display));
