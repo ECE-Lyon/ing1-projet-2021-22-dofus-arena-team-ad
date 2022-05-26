@@ -34,7 +34,7 @@ void affichagePorteeDeplacement(Case tabCase[LIGNES_TAB][COLONNES_TAB], int lign
     al_draw_filled_rectangle(tabCase[ligneSouris][colonneSouris].x + 3, tabCase[ligneSouris][colonneSouris].y + 3,
                              tabCase[ligneSouris][colonneSouris].x + TAILLE_CASE - 4,
                              tabCase[ligneSouris][colonneSouris].y + TAILLE_CASE - 4,
-                             al_map_rgba(20, 20, 20, 200));
+                             al_map_rgba(20, 20, 20,200));
 }
 
 int valeureAbsolue(int i, int j) {
@@ -294,8 +294,8 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                sleep(1);
-                x += 150; // on l'affiche tous les 150 pixels (effet glissement)
+                Sleep(1);
+                x += 200; // on l'affiche tous les 150 pixels (effet glissement)
             }
         }
 
@@ -309,8 +309,8 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                sleep(1);
-                x -= 150;
+                Sleep(1);
+                x -= 200;
             }
         }
         if (positionIntermediaire.ligne > positionJoueur.ligne) {
@@ -323,8 +323,8 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                sleep(1);
-                y += 150;
+                Sleep(1);
+                y += 200;
             }
         }
         if (positionIntermediaire.ligne < positionJoueur.ligne) {
@@ -338,8 +338,8 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                sleep(1);
-                y -= 150;
+                Sleep(1);
+                y -= 200;
             }
         }
     }
@@ -431,6 +431,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 
 // init et installations
     display = al_create_display(ECRAN_LONGUEUR, ECRAN_LARGEUR);
+    al_set_window_position(display, 0, 0);
     timer = al_create_timer(1.0 / 60.0);
     queue = al_create_event_queue();
     al_register_event_source(queue, al_get_display_event_source(display));

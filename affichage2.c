@@ -13,17 +13,20 @@ void affichageMenu0(ALLEGRO_BITMAP* background, rectangle rectNom1, rectangle re
 void textCredit(rectangle r, ALLEGRO_FONT* microOrbiton){
     al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30, ALLEGRO_ALIGN_CENTER, "Jeu basé sur le système de combat de "
                                                                                                             "Dofus");
-    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+80, ALLEGRO_ALIGN_CENTER, "Codé par :");
-    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+(40*1)+80, ALLEGRO_ALIGN_CENTER, "Vadim LE MOULLEC,");
-    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+(40*2)+80, ALLEGRO_ALIGN_CENTER, "Mona LIAS,");
-    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+(40*3)+80, ALLEGRO_ALIGN_CENTER, "Eva DARMON,");
-    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+(40*4)+80, ALLEGRO_ALIGN_CENTER, "Esteban MARTIN GARCIA,");
-    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+(40*4)+80*2, ALLEGRO_ALIGN_CENTER, "Arène créé par Vadim LE "
+    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+(HAUTEUR/10), ALLEGRO_ALIGN_CENTER, "Codé par :");
+    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+((HAUTEUR/20)*1)+(HAUTEUR/10), ALLEGRO_ALIGN_CENTER, "Vadim LE"
+                                                                                                                                          " MOULLEC,");
+    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+((HAUTEUR/20)*2)+(HAUTEUR/10), ALLEGRO_ALIGN_CENTER, "Mona LIAS,");
+    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+((HAUTEUR/20)*3)+(HAUTEUR/10), ALLEGRO_ALIGN_CENTER, "Eva DARMON,");
+    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+((HAUTEUR/20)*4)+(HAUTEUR/10), ALLEGRO_ALIGN_CENTER, "Esteban MARTIN GARCIA,");
+    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+((HAUTEUR/20)*4)+2*(HAUTEUR/10), ALLEGRO_ALIGN_CENTER, "Arène créé par "
+                                                                                                                                 "Vadim LE "
                                                                                                                       "MOULLEC");
-    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+(40*5)+80*2, ALLEGRO_ALIGN_CENTER, "(À partir des tuiles de "
+    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+((HAUTEUR/20)*5)+(HAUTEUR/10)*2, ALLEGRO_ALIGN_CENTER, "(À partir des tuiles de "
                                                                                                                         "Pokémon)");
-    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+(40*5)+80*3, ALLEGRO_ALIGN_CENTER, "Musique de xDeviruchi");
-    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+(40*5)+80*4, ALLEGRO_ALIGN_CENTER, "Dessin d'accueil de Trix");
+    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+((HAUTEUR/20)*5)+(HAUTEUR/10)*3, ALLEGRO_ALIGN_CENTER, "Musique de xDeviruchi");
+    al_draw_text(microOrbiton, al_map_rgb(255,255,255), LARGEUR/2, r.y+ r.largeur/30+((HAUTEUR/20)*5)+(HAUTEUR/10)*4, ALLEGRO_ALIGN_CENTER, "Dessin"
+                                                                                                                                            " d'accueil de Trix");
 }
 
 void affichageMenu2(ALLEGRO_BITMAP* background, rectangle mini, rectangle CarreCredit, ALLEGRO_FONT* Megrim,ALLEGRO_FONT* miniOrbitron,
@@ -243,7 +246,7 @@ void affichageMenu1(ALLEGRO_BITMAP* background, rectangle Carre1, rectangle Carr
                     ALLEGRO_FONT* Orbitron){
     al_draw_scaled_bitmap(background,0,0,1300,800,0,0,LARGEUR,HAUTEUR,ALLEGRO_FLIP_HORIZONTAL);
     al_draw_text(Megrim, al_map_rgb(255,255,255), 10, 10, ALLEGRO_ALIGN_LEFT, "STELLAR WARS");
-    al_draw_text(Orbitron, al_map_rgb(255,255,255), 100,160,ALLEGRO_ALIGN_LEFT, "Nombre de Joueurs :");
+    al_draw_text(Orbitron, al_map_rgb(255,255,255), LARGEUR/20,HAUTEUR/4,ALLEGRO_ALIGN_LEFT, "Nombre de Joueurs :");
     al_flip_display();
 }
 
@@ -288,7 +291,7 @@ void MENU(bool* play, Joueurs** listeJoueurs){
     ALLEGRO_SAMPLE* clik = NULL;
     ALLEGRO_SAMPLE* TitleTheme = NULL;
     ALLEGRO_SAMPLE_INSTANCE* TitleThemeInstance = NULL;
-    ALLEGRO_FONT* Megrim = al_load_ttf_font("../Font/Megrim-Regular.ttf", 200, 0);
+    ALLEGRO_FONT* Megrim = al_load_ttf_font("../Font/Megrim-Regular.ttf", TAILLE_POLICE_MAX*((float)5/3), 0);
     ALLEGRO_FONT* Orbitron = al_load_ttf_font("../Font/Orbitron.ttf", TAILLE_POLICE_MAX, 0);
     ALLEGRO_FONT* miniOrbitron = al_load_ttf_font("../Font/Orbitron.ttf", TAILLE_POLICE_MAX/2, 0);
     ALLEGRO_FONT* microOrbitron = al_load_ttf_font("../Font/Orbitron.ttf", TAILLE_POLICE_MAX/4, 0);
@@ -338,7 +341,7 @@ void MENU(bool* play, Joueurs** listeJoueurs){
     al_set_display_icon(display, icon);
     al_set_window_position(display, 0, 0);
 
-    timer = al_create_timer(1.0/30.0);
+    timer = al_create_timer(1.0/60.0);
     al_start_timer(timer);
 
     queue = al_create_event_queue();
