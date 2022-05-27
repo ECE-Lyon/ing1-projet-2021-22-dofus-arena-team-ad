@@ -14,17 +14,17 @@ void InitialiserClass(classe* Solaris, classe* Terra, classe* Martian, classe* S
     strcpy (Solaris->nom , " Solaris");
     Solaris->numClasse = 0;
     Solaris->pv = 50;
-    //Solaris->sort =  tabsort[4];
+    
 
     strcpy (Terra->nom , " Terra");
     Terra->numClasse = 1;
     Terra->pv = 50;
-    //sort
+   
 
     strcpy (Martian->nom ," Martian");
     Martian->numClasse = 2;
     Martian->pv = 75;
-    //sorts
+  
 
     strcpy (Saturna->nom ," Saturna");
     Saturna->numClasse = 3;
@@ -146,8 +146,8 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
 
     Saturna->sort[1] = tabsort[10];
 
-    strcpy(tabsort[11].nom, "Disque Platine");
-    tabsort[11].degat = 10;
+    strcpy(tabsort[11].nom, "Disque Tranchant");
+    tabsort[11].degat = -10;
     tabsort[11].PA = -2;
     tabsort[11].portee = 2;
     tabsort[11].pourEchec = 0.3;
