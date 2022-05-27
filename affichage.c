@@ -628,31 +628,33 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                     event.mouse.y >= HAUTEUR * (0.538) &&
                     event.mouse.y <= HAUTEUR * (0.538) + 100) {
 
-                    al_draw_text(Megrim, BLANC, 800, 600, ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[0].nom);
-                    dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
-                                 joueurActuel.positionJ,
-                                 anim, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
+                    al_draw_text(Megrim, BLANC, LARGEUR*(0.915), LONGUEUR*(0.72), ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[0].nom);
+                    al_flip_display();
                 }
 
-                if (event.mouse.x >= LARGEUR * (0.82) && event.mouse.x <= LARGEUR * (0.82) + 100 &&
+              else  if (event.mouse.x >= LARGEUR * (0.82) && event.mouse.x <= LARGEUR * (0.82) + 100 &&
                     event.mouse.y >= HAUTEUR * (0.538) &&
                     event.mouse.y <= HAUTEUR * (0.538) + 100) {
-                    al_draw_text(Megrim, BLANC, 1100, 600, ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[1].nom);
-                    dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
-                                 joueurActuel.positionJ,
-                                 anim, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
-
+                    al_draw_text(Megrim, BLANC, LARGEUR*(0.915), LONGUEUR*(0.72), ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[1].nom);
+                    al_flip_display();
+                
                 }
-                if (event.mouse.x >= LARGEUR * (0.92) && event.mouse.x <= LARGEUR * (0.92) + 100 &&
+               else if (event.mouse.x >= LARGEUR * (0.92) && event.mouse.x <= LARGEUR * (0.92) + 100 &&
                     event.mouse.y >= HAUTEUR * (0.538) &&
                     event.mouse.y <= HAUTEUR * (0.538) + 100) {
 
-                    al_draw_text(Megrim, BLANC, 1250, 600, ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[2].nom);
-                    dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
+                    al_draw_text(Megrim, BLANC,LARGEUR*(0.915), LONGUEUR*(0.72), ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[2].nom);
+                    al_flip_display();
+                   
+
+                }else {
+                 
+                  dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
                                  joueurActuel.positionJ,
                                  anim, cmptimage, listeJ, &joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
-
-                }
+                 
+               }
+      
 
                 // determiner sur quel sort le joueur clique en fonction de la position souris et afficher des couleurs/son
                 if (echape) {
