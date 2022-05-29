@@ -45,8 +45,7 @@ int valeureAbsolue(int i, int j) {
     }
 }
 
-void
-affichagePorte(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligne, int colonne, int tabArene[LIGNES_TAB][COLONNES_TAB],
+void affichagePorte(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligne, int colonne, int tabArene[LIGNES_TAB][COLONNES_TAB],
                int PMJ) {
     for (int i = 0; i < LIGNES_TAB; ++i) {
         for (int j = 0; j < COLONNES_TAB; ++j) {
@@ -193,15 +192,26 @@ void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int co
                     break;
                 }
                 case 4: {
-                    al_draw_bitmap(decor.meteor, (float) (100 * colonne) + 80, (float) ((100 * ligne) - 10) + 135,0);
+                    al_draw_scaled_bitmap(decor.meteor,0,0,150,150,tabCase[ligne][colonne].x,tabCase[ligne][colonne].y,TAILLE_CASE + 8,TAILLE_CASE + 8,0);
+                    //al_draw_bitmap(decor.meteor, (float) (100 * colonne) + 80, (float) ((100 * ligne) - 10) + 135,0);
                     break;
                 }
                 case 5: {
-                    al_draw_bitmap(decor.cailloux, (float) (100 * colonne) + 80, (float) ((100 * ligne) + 20) + 135,0);
+                    //al_draw_bitmap(decor.cailloux, (float) (100 * colonne) + 80, (float) ((100 * ligne) + 20) + 135,0);
+                    al_draw_scaled_bitmap(decor.cailloux,0,0,80,80,tabCase[ligne][colonne].x + 25,tabCase[ligne][colonne].y + 25,(float)TAILLE_CASE/2,(float)TAILLE_CASE/2,0);
+                    al_draw_scaled_bitmap(decor.cailloux,0,0,80,80,tabCase[ligne][colonne].x,tabCase[ligne][colonne].y + 25,(float)TAILLE_CASE/2,(float)TAILLE_CASE/2,0);
+                    al_draw_scaled_bitmap(decor.cailloux,0,0,80,80,tabCase[ligne][colonne].x + 25,tabCase[ligne][colonne].y,(float)TAILLE_CASE/2,(float)TAILLE_CASE/2,0);
+                    al_draw_scaled_bitmap(decor.cailloux,0,0,80,80,tabCase[ligne][colonne].x + 50,tabCase[ligne][colonne].y + 25,(float)TAILLE_CASE/2,(float)TAILLE_CASE/2,0);
+                    al_draw_scaled_bitmap(decor.cailloux,0,0,80,80,tabCase[ligne][colonne].x,tabCase[ligne][colonne].y,(float)TAILLE_CASE/2,(float)TAILLE_CASE/2,0);
+                    al_draw_scaled_bitmap(decor.cailloux,0,0,80,80,tabCase[ligne][colonne].x + (float)TAILLE_CASE/2,tabCase[ligne][colonne].y + (float)TAILLE_CASE/2,(float)TAILLE_CASE/2,(float)TAILLE_CASE/2,0);
+                    al_draw_scaled_bitmap(decor.cailloux,0,0,80,80,tabCase[ligne][colonne].x + (float)TAILLE_CASE/2,tabCase[ligne][colonne].y,(float)TAILLE_CASE/2,(float)TAILLE_CASE/2,0);
+                    al_draw_scaled_bitmap(decor.cailloux,0,0,80,80,tabCase[ligne][colonne].x,tabCase[ligne][colonne].y + (float)TAILLE_CASE/2,(float)TAILLE_CASE/2,(float)TAILLE_CASE/2,0);
                     break;
                 }
                 case 6 : {
-                    al_draw_bitmap(decor.fleur, (float) (100 * colonne) + 80, (float) ((100 * ligne) - 50) + 135,0);
+                    al_draw_scaled_bitmap(decor.herbe,0,0,211,209,tabCase[ligne][colonne].x,tabCase[ligne][colonne].y,TAILLE_CASE-1,TAILLE_CASE-1,0);
+                    al_draw_scaled_bitmap(decor.fleur,0,0,45,90,tabCase[ligne][colonne].x + 23,tabCase[ligne][colonne].y - 40,(float)TAILLE_CASE/2 + 10,TAILLE_CASE + 10,0);
+                    //al_draw_bitmap(decor.fleur, (float) (100 * colonne) + 80, (float) ((100 * ligne) - 50) + 135,0);
                     break;
                 }
                 default: {
@@ -220,15 +230,15 @@ void affichageMenuPerso(ALLEGRO_BITMAP *sort1, ALLEGRO_BITMAP *sort2, ALLEGRO_BI
                         ALLEGRO_FONT *Orbitron,
                         ALLEGRO_COLOR BLANC, Joueurs JA) {
     al_draw_text(Orbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.05), ALLEGRO_ALIGN_RIGHT, JA.nom);
-    al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.18), ALLEGRO_ALIGN_RIGHT, "PV :");
-    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.96), HAUTEUR * (0.18), ALLEGRO_ALIGN_RIGHT, "%d", JA.pv);
-    al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.30), ALLEGRO_ALIGN_RIGHT, "PA : ");
-    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.30), ALLEGRO_ALIGN_RIGHT, "%d", JA.pa);
-    al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.41), ALLEGRO_ALIGN_RIGHT, "PM : ");
-    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.41), ALLEGRO_ALIGN_RIGHT, "%d",PM_MAX - (JA.pm));
-    al_draw_bitmap(sort1, LARGEUR * (0.72), HAUTEUR * (0.538), ALLEGRO_ALIGN_RIGHT);
-    al_draw_bitmap(sort2, LARGEUR * (0.82), HAUTEUR * (0.538), ALLEGRO_ALIGN_RIGHT);
-    al_draw_bitmap(sort3, LARGEUR * (0.92), HAUTEUR * (0.538), ALLEGRO_ALIGN_RIGHT);
+    al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.15), ALLEGRO_ALIGN_RIGHT, "PV :");
+    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.15), ALLEGRO_ALIGN_RIGHT, "%d", JA.pv);
+    al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.20), ALLEGRO_ALIGN_RIGHT, "PA : ");
+    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.20), ALLEGRO_ALIGN_RIGHT, "%d", JA.pa);
+    al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.25), ALLEGRO_ALIGN_RIGHT, "PM : ");
+    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.25), ALLEGRO_ALIGN_RIGHT, "%d",PM_MAX - (JA.pm));
+    al_draw_bitmap(sort1, LARGEUR * (0.82), HAUTEUR * (0.35), 0);
+    al_draw_bitmap(sort2, LARGEUR * (0.87), HAUTEUR * (0.35), 0);
+    al_draw_bitmap(sort3, LARGEUR * (0.92), HAUTEUR * (0.35), 0);
     drawrectangle(rectNext, miniOrbitron, "Fin du Tour");
 
 
@@ -294,7 +304,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                Sleep(1);
+                sleep(1);
                 x += 200; // on l'affiche tous les 150 pixels (effet glissement)
             }
         }
@@ -309,7 +319,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                Sleep(1);
+                sleep(1);
                 x -= 200;
             }
         }
@@ -318,12 +328,12 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
             while (y < ((100 * (positionJoueur.ligne) - 50) + 135) + 100) {
                 dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ,
                             jActuel);
-//               // al_draw_scaled_bitmap(anim[compteurImage], 0, 0, 157, 199, ((100 * (positionJoueur.colonne)) + 80)-20, y , 140, 180, 0);
+                //al_draw_scaled_bitmap(anim[compteurImage], 0, 0, 157, 199, ((100 * (positionJoueur.colonne)) + 80)-20, y , 140, 180, 0);
                 dessinerPerso(anim, compteurImage, ((y + 50) / 100) - 135, positionJoueur.colonne, *jActuel);
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                Sleep(1);
+                sleep(1);
                 y += 200;
             }
         }
@@ -338,7 +348,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
                                    *jActuel);
                 al_flip_display();
-                Sleep(1);
+                sleep(1);
                 y -= 200;
             }
         }
@@ -624,26 +634,42 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 
            case ALLEGRO_EVENT_MOUSE_AXES: {
     // afficher le nom du sort en fonction du sort cliqué
-                if (event.mouse.x >= LARGEUR * (0.72) && event.mouse.x <= LARGEUR * (0.72) + 100 &&
-                    event.mouse.y >= HAUTEUR * (0.538) &&
-                    event.mouse.y <= HAUTEUR * (0.538) + 100) {
-
-                    al_draw_text(Megrim, BLANC, LARGEUR*(0.915), LONGUEUR*(0.72), ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[0].nom);
+                if (event.mouse.x >= LARGEUR * (0.82) && event.mouse.x <= LARGEUR * (0.82) + 100 &&
+                    event.mouse.y >= HAUTEUR * (0.35) &&
+                    event.mouse.y <= HAUTEUR * (0.35) + 100) {
+                    al_draw_text(Megrim, BLANC, LARGEUR*(0.82), HAUTEUR*(0.42), 0, joueurActuel.classeJ.sort[0].nom);
+                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.5),0,"Dégats : ");
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.5), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[0].degat);
+                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.55),0,"Consomation : ");
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[0].PA);
+                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.6),0,"Portée : ");
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[0].portee);
                     al_flip_display();
                 }
 
-              else  if (event.mouse.x >= LARGEUR * (0.82) && event.mouse.x <= LARGEUR * (0.82) + 100 &&
-                    event.mouse.y >= HAUTEUR * (0.538) &&
-                    event.mouse.y <= HAUTEUR * (0.538) + 100) {
-                    al_draw_text(Megrim, BLANC, LARGEUR*(0.915), LONGUEUR*(0.72), ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[1].nom);
+              else  if (event.mouse.x >= LARGEUR * (0.87) && event.mouse.x <= LARGEUR * (0.87) + 100 &&
+                    event.mouse.y >= HAUTEUR * (0.35) &&
+                    event.mouse.y <= HAUTEUR * (0.35) + 100) {
+                    al_draw_text(Megrim, BLANC, LARGEUR*(0.82), HAUTEUR*(0.42), 0, joueurActuel.classeJ.sort[1].nom);
+                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.5),0,"Dégats : ");
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.5), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[1].degat);
+                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.55),0,"Consomation : ");
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[1].PA);
+                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.6),0,"Portée : ");
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[1].portee);
                     al_flip_display();
                 
                 }
                else if (event.mouse.x >= LARGEUR * (0.92) && event.mouse.x <= LARGEUR * (0.92) + 100 &&
-                    event.mouse.y >= HAUTEUR * (0.538) &&
-                    event.mouse.y <= HAUTEUR * (0.538) + 100) {
-
-                    al_draw_text(Megrim, BLANC,LARGEUR*(0.915), LONGUEUR*(0.72), ALLEGRO_ALIGN_RIGHT, joueurActuel.classeJ.sort[2].nom);
+                    event.mouse.y >= HAUTEUR * (0.35) &&
+                    event.mouse.y <= HAUTEUR * (0.35) + 100) {
+                    al_draw_text(Megrim, BLANC,LARGEUR*(0.82), HAUTEUR*(0.42), 0, joueurActuel.classeJ.sort[2].nom);
+                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.5),0,"Dégats : ");
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.5), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[2].degat);
+                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.55),0,"Consomation : ");
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[2].PA);
+                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.6),0,"Portée : ");
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[2].portee);
                     al_flip_display();
                    
 
@@ -706,8 +732,6 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                 break;
             }
         }
-
-
     }
     destroy(decor, display, timer, queue, anim);
 }

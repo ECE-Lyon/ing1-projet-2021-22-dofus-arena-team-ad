@@ -56,11 +56,11 @@ typedef struct{
     int pv;
     int numClasse;
     //voir tableau de pointeur sur fonction
-    Sorts sort[4];
+    Sorts sort[3];
 }classe;
 
 typedef struct {
-    ALLEGRO_BITMAP * rocher, *Soleil, *perso, *cailloux,*fleur, *meteor, *Mars, *sort1, *sort2, *sort3, *imJ;
+    ALLEGRO_BITMAP * rocher, *Soleil, *perso, *cailloux,*fleur, *meteor, *herbe, *Mars, *sort1, *sort2, *sort3, *imJ;
     char nom[100];
 }Image;
 
