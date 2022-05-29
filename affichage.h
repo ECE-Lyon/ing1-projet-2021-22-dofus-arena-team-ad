@@ -31,9 +31,8 @@ void deplacementJoueur(Case tabCase[LIGNES_TAB][COLONNES_TAB], Coords tabChemin)
 
 void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[],Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, Image decor, int ligne, int colonne, int tabArene[LIGNES_TAB][COLONNES_TAB], int PMJoueur, int compteurImage, Joueurs * listeJ, Joueurs *jActuel,  rectangle rectNext, ALLEGRO_FONT* miniOrbitron,ALLEGRO_FONT* Orbitron,ALLEGRO_COLOR BLANC);
 void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX+1], Joueurs*joueur);
-void destroy(Image decors, ALLEGRO_DISPLAY * display, ALLEGRO_TIMER* timer, ALLEGRO_EVENT_QUEUE* queue, ALLEGRO_BITMAP*anim[NB_IMAGES]);
-void dessinerTout(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, Image decor, int ligne, int colonne,int tabArene[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX + 1],Coords positionJoueur,ALLEGRO_BITMAP*anim[], int cmptImage,  Joueurs* listeJ, Joueurs *jActuel,  rectangle rectNext, ALLEGRO_FONT* miniOrbitron,ALLEGRO_FONT* Orbitron,ALLEGRO_COLOR BLANC);
-void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, Image decor, int ligne,
+    void dessinerTout(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, Image decor, int ligne, int colonne,int tabArene[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX + 1],Coords positionJoueur,ALLEGRO_BITMAP*anim[], int cmptImage,  Joueurs* listeJ, Joueurs *jActuel,  rectangle rectNext, ALLEGRO_FONT* miniOrbitron,ALLEGRO_FONT* Orbitron,ALLEGRO_COLOR BLANC);
+    void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int colonneSouris, Image decor, int ligne,
                  int colonne,
                  int tabArene[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX + 1], Joueurs *listeJ,
                  Joueurs *jActuel);

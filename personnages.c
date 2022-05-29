@@ -1,37 +1,37 @@
 #include "general.h"
 
-Joueurs* iniJ(int numJ){
-    Joueurs* tempo = malloc(sizeof(Joueurs));
+Joueurs *iniJ(int numJ) {
+    Joueurs *tempo = malloc(sizeof(Joueurs));
     tempo->next = NULL;
     tempo->pm = 3;
     tempo->pa = 10;
-    tempo->nom[0]='\0';
-    tempo->numJ=numJ;
+    tempo->nom[0] = '\0';
+    tempo->numJ = numJ;
     return tempo;
 }
 
-void InitialiserClass(classe* Solaris, classe* Terra, classe* Martian, classe* Saturna){
-    strcpy (Solaris->nom , " Solaris");
+void InitialiserClass(classe *Solaris, classe *Terra, classe *Martian, classe *Saturna) {
+    strcpy (Solaris->nom, " Solaris");
     Solaris->numClasse = 0;
     Solaris->pv = 50;
     //Solaris->sort =  tabsort[4];
 
-    strcpy (Terra->nom , " Terra");
+    strcpy (Terra->nom, " Terra");
     Terra->numClasse = 1;
     Terra->pv = 50;
     //sort
 
-    strcpy (Martian->nom ," Martian");
+    strcpy (Martian->nom, " Martian");
     Martian->numClasse = 2;
     Martian->pv = 75;
     //sorts
 
-    strcpy (Saturna->nom ," Saturna");
+    strcpy (Saturna->nom, " Saturna");
     Saturna->numClasse = 3;
     Saturna->pv = 60;
 }
 
-void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Martian, classe* Saturna) {
+void initialiserSort(Sorts tabsort[], classe *Solaris, classe *Terra, classe *Martian, classe *Saturna) {
 
 
     tabsort[0].degat = 0;
@@ -39,17 +39,18 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[0].portee = INFINI;
     tabsort[0].pourEchec = 0.3;
     tabsort[0].timestour = 1;
-    tabsort[0].timespart =  1;
+    tabsort[0].timespart = 1;
     strcpy(tabsort[0].nom, "Eblouissement");
 
     Solaris->sort[0] = tabsort[0];
+
     strcpy(tabsort[1].nom, "Scintillement");
     tabsort[1].degat = -5;
     tabsort[1].PA = -5;
     tabsort[1].portee = 30;
     tabsort[1].pourEchec = 0.3;
     tabsort[1].timestour = 2;
-    tabsort[1].timespart =  INFINI;
+    tabsort[1].timespart = INFINI;
 
     Solaris->sort[1] = tabsort[1];
 
@@ -59,7 +60,7 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[2].portee = 3;
     tabsort[2].pourEchec = 0.3;
     tabsort[2].timestour = INFINI;
-    tabsort[2].timespart =  INFINI;
+    tabsort[2].timespart = INFINI;
 
     Solaris->sort[2] = tabsort[2];
 
@@ -70,7 +71,7 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[3].portee = INFINI;
     tabsort[3].pourEchec = 0.3;
     tabsort[3].timestour = 2;
-    tabsort[3].timespart =  5;
+    tabsort[3].timespart = 5;
 
     Terra->sort[0] = tabsort[3];
 
@@ -81,7 +82,7 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[4].portee = 5;
     tabsort[4].pourEchec = 0.33;
     tabsort[4].timestour = 5;
-    tabsort[4].timespart =  15;
+    tabsort[4].timespart = 15;
 
     Terra->sort[1] = tabsort[4];
 
@@ -91,7 +92,7 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[5].portee = 5;
     tabsort[5].pourEchec = 0.3;
     tabsort[5].timestour = INFINI;
-    tabsort[5].timespart =  INFINI;
+    tabsort[5].timespart = INFINI;
 
     Terra->sort[2] = tabsort[5];
     strcpy(tabsort[6].nom, "Etincelle");
@@ -100,7 +101,7 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[6].portee = 1;
     tabsort[6].pourEchec = 0.3;
     tabsort[6].timestour = 2;
-    tabsort[6].timespart =  INFINI;
+    tabsort[6].timespart = INFINI;
 
     Martian->sort[0] = tabsort[6];
 
@@ -110,7 +111,7 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[7].portee = 4;
     tabsort[7].pourEchec = 0.3;
     tabsort[7].timestour = INFINI;
-    tabsort[7].timespart =  INFINI;
+    tabsort[7].timespart = INFINI;
 
     Martian->sort[1] = tabsort[7];
 
@@ -120,7 +121,7 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[8].portee = 3;
     tabsort[8].pourEchec = 0.3;
     tabsort[8].timestour = 2;
-    tabsort[8].timespart =  INFINI;
+    tabsort[8].timespart = INFINI;
 
     Martian->sort[2] = tabsort[8];
 
@@ -130,7 +131,7 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[9].portee = 3;// en ligne portée inifini
     tabsort[9].pourEchec = 0.3;
     tabsort[9].timestour = INFINI;
-    tabsort[9].timespart =  INFINI;
+    tabsort[9].timespart = INFINI;
 
 
     Saturna->sort[0] = tabsort[9];
@@ -141,7 +142,7 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[10].portee = 3;
     tabsort[10].pourEchec = 0.3;
     tabsort[10].timestour = 2;
-    tabsort[10].timespart =  20;
+    tabsort[10].timespart = 20;
 
 
     Saturna->sort[1] = tabsort[10];
@@ -152,11 +153,64 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
     tabsort[11].portee = 2;
     tabsort[11].pourEchec = 0.3;
     tabsort[11].timestour = INFINI;
-    tabsort[11].timespart =  INFINI;
+    tabsort[11].timespart = INFINI;
 
     Saturna->sort[2] = tabsort[11];
 
 }
+
+void initCaracteristiquesJoueurs(Joueurs **listeJ, classe Solaris, classe Terra, classe Martian, classe Saturna) {
+    Joueurs *tmp = *listeJ;
+    switch (tmp->classeJ.numClasse) {
+        case 0: {
+            tmp->classeJ = Solaris;
+            break;
+        }
+        case 1: {
+            tmp->classeJ = Terra;
+            break;
+        }
+        case 2: {
+            tmp->classeJ = Martian;
+            break;
+        }
+        case 3: {
+            tmp->classeJ = Saturna;
+            break;
+        }
+        default: {
+            printf("erreur classe joueur\n");
+            break;
+        }
+    }
+    tmp= tmp->next;
+    while (tmp != *listeJ) {
+        switch (tmp->classeJ.numClasse) {
+            case 0: {
+                tmp->classeJ = Solaris;
+                break;
+            }
+            case 1: {
+                tmp->classeJ = Terra;
+                break;
+            }
+            case 2: {
+                tmp->classeJ = Martian;
+                break;
+            }
+            case 3: {
+                tmp->classeJ = Saturna;
+                break;
+            }
+            default: {
+                printf("erreur classe joueur\n");
+                break;
+            }
+        }
+        tmp = tmp->next;
+    }
+}
+
 
 /*
 Joueurs* initialisationJ(int nbJ, Joueurs* listeJ){
@@ -181,12 +235,11 @@ Joueurs* initialisationJ(int nbJ, Joueurs* listeJ){
 }
 */
 
-void passerJnext(Joueurs* JA, Joueurs* listeJ){
-    Joueurs* tempo = listeJ;
-    while(JA->numJ != tempo->numJ){
-        tempo=tempo->next;
+    void passerJnext(Joueurs **JA, Joueurs *listeJ) {
+        Joueurs *tempo = listeJ;
+        while ((*JA)->numJ != tempo->numJ) {
+            tempo = tempo->next;
+        }
+        tempo->pv = (*JA)->pv;
+        *JA = (*JA)->next;
     }
-    tempo->pv = JA->pv;
-    //position??
-    *JA = *(*JA).next;
-}

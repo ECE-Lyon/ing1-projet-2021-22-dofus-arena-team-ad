@@ -58,6 +58,8 @@ void initialiserImages(Image* decor){
     decor->sort1 = al_load_bitmap("../Image/feu.png");
     decor->sort2 = al_load_bitmap("../Image/vent.png");
    decor->sort3 = al_load_bitmap("../Image/flaqueorageuse.png");
+   decor->Terre = al_load_bitmap("../background/Terre.png");
+   decor->Saturne = al_load_bitmap("../background/Saturne.png");
 }
 void initialiserTableau( int tab[LIGNES_TAB][COLONNES_TAB]){
     int  ligne,colonne;
