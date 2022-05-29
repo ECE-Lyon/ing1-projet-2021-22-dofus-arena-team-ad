@@ -744,11 +744,6 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                                       rectNext, miniOrbitron, Orbitron, BLANC);
                     }
                 }
-                // juste pour pouvoir tester sans prendre trop de temps je réinitialise ici les PM à 0 a chaque fois que j'ai atteint les 3PM
-                // mais ça sera à gerer dans le Tour Joueur plutôt
-                if (joueurActuel->pm >= PM_MAX) {
-                    joueurActuel->pm = 0;
-                }
                 break;
             }
                 //modifs 22/05
