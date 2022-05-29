@@ -1,37 +1,37 @@
 #include "general.h"
 
-Joueurs* iniJ(int numJ){
-    Joueurs* tempo = malloc(sizeof(Joueurs));
+Joueurs *iniJ(int numJ) {
+    Joueurs *tempo = malloc(sizeof(Joueurs));
     tempo->next = NULL;
     tempo->pm = 3;
     tempo->pa = 10;
-    tempo->nom[0]='\0';
-    tempo->numJ=numJ;
+    tempo->nom[0] = '\0';
+    tempo->numJ = numJ;
     return tempo;
 }
 
-void InitialiserClass(classe* Solaris, classe* Terra, classe* Martian, classe* Saturna){
-    strcpy (Solaris->nom , " Solaris");
+void InitialiserClass(classe *Solaris, classe *Terra, classe *Martian, classe *Saturna) {
+    strcpy (Solaris->nom, " Solaris");
     Solaris->numClasse = 0;
     Solaris->pv = 50;
     
 
-    strcpy (Terra->nom , " Terra");
+    strcpy (Terra->nom, " Terra");
     Terra->numClasse = 1;
     Terra->pv = 50;
    
 
-    strcpy (Martian->nom ," Martian");
+    strcpy (Martian->nom, " Martian");
     Martian->numClasse = 2;
     Martian->pv = 75;
   
 
-    strcpy (Saturna->nom ," Saturna");
+    strcpy (Saturna->nom, " Saturna");
     Saturna->numClasse = 3;
     Saturna->pv = 60;
 }
 
-void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Martian, classe* Saturna) {
+void initialiserSort(Sorts tabsort[], classe *Solaris, classe *Terra, classe *Martian, classe *Saturna) {
 
     //Solaris :
     strcpy(tabsort[0].nom, "Eblouissement");
@@ -147,6 +147,59 @@ void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Mar
 
 }
 
+void initCaracteristiquesJoueurs(Joueurs **listeJ, classe Solaris, classe Terra, classe Martian, classe Saturna) {
+    Joueurs *tmp = *listeJ;
+    switch (tmp->classeJ.numClasse) {
+        case 0: {
+            tmp->classeJ = Solaris;
+            break;
+        }
+        case 1: {
+            tmp->classeJ = Terra;
+            break;
+        }
+        case 2: {
+            tmp->classeJ = Martian;
+            break;
+        }
+        case 3: {
+            tmp->classeJ = Saturna;
+            break;
+        }
+        default: {
+            printf("erreur classe joueur\n");
+            break;
+        }
+    }
+    tmp= tmp->next;
+    while (tmp != *listeJ) {
+        switch (tmp->classeJ.numClasse) {
+            case 0: {
+                tmp->classeJ = Solaris;
+                break;
+            }
+            case 1: {
+                tmp->classeJ = Terra;
+                break;
+            }
+            case 2: {
+                tmp->classeJ = Martian;
+                break;
+            }
+            case 3: {
+                tmp->classeJ = Saturna;
+                break;
+            }
+            default: {
+                printf("erreur classe joueur\n");
+                break;
+            }
+        }
+        tmp = tmp->next;
+    }
+}
+
+
 /*
 Joueurs* initialisationJ(int nbJ, Joueurs* listeJ){
     Joueurs *tempo = NULL;
@@ -170,12 +223,11 @@ Joueurs* initialisationJ(int nbJ, Joueurs* listeJ){
 }
 */
 
-void passerJnext(Joueurs* JA, Joueurs* listeJ){
-    Joueurs* tempo = listeJ;
-    while(JA->numJ != tempo->numJ){
-        tempo=tempo->next;
+    void passerJnext(Joueurs **JA, Joueurs *listeJ) {
+        Joueurs *tempo = listeJ;
+        while ((*JA)->numJ != tempo->numJ) {
+            tempo = tempo->next;
+        }
+        tempo->pv = (*JA)->pv;
+        *JA = (*JA)->next;
     }
-    tempo->pv = JA->pv;
-    //position??
-    *JA = *(*JA).next;
-}

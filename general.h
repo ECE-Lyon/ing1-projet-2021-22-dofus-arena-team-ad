@@ -56,11 +56,12 @@ typedef struct{
     int pv;
     int numClasse;
     //voir tableau de pointeur sur fonction
-    Sorts sort[3];
+    Sorts sort[4];
 }classe;
 
 typedef struct {
     ALLEGRO_BITMAP * rocher, *Soleil, *perso, *cailloux,*fleur, *meteor, *herbe, *Mars, *sort1, *sort2, *sort3, *imJ;
+    ALLEGRO_BITMAP * rocher, *Soleil, *perso, *cailloux,*fleur, *meteor, *Mars, *sort1, *sort2, *sort3, *imJ, *Terre, *Saturne;
     char nom[100];
 }Image;
 
@@ -69,6 +70,7 @@ typedef struct J{
     char nom[NBLETTRE];
     int pv, pa, pm, numJ;
     struct J* next;
+    struct J*prev;
     ALLEGRO_BITMAP *image;
     classe classeJ;
     Coords positionJ;
@@ -118,11 +120,12 @@ Joueurs* initialisationJ(int nbJ, Joueurs* listeJ);
 Joueurs* iniJ(int numJ);
 void InitialiserClass(classe* Solaris, classe* Terra, classe* Martian, classe* Saturna);
 void initialiserSort(Sorts tabsort[],classe* Solaris, classe* Terra, classe* Martian, classe* Saturna);
-void passerJnext(Joueurs* JA, Joueurs* listeJ);
-
+void passerJnext(Joueurs**JA, Joueurs* listeJ);
+void initCaracteristiquesJoueurs(Joueurs **listeJ, classe Solaris, classe Terra, classe Martian, classe Saturna);
 //jeu
 void JEU(Joueurs* listeJ);
-
+void libererListe( Joueurs ** liste);
+void destroy(Image decors, ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_FONT* Megrim,ALLEGRO_FONT* Orbitron, ALLEGRO_FONT*miniOrbitron, ALLEGRO_FONT*microOrbitron, ALLEGRO_SAMPLE *FightSong,ALLEGRO_SAMPLE_INSTANCE *FightSongInstance,ALLEGRO_SAMPLE *tic,ALLEGRO_SAMPLE *clik);
 //affichage jeu
 void affichageG(ALLEGRO_BITMAP* arene, ALLEGRO_BITMAP *sort1, ALLEGRO_BITMAP*sort2, ALLEGRO_BITMAP*sort3, rectangle rectNext, ALLEGRO_FONT* miniOrbitron, ALLEGRO_FONT* Orbitron,
                 ALLEGRO_COLOR BLANC, Joueurs JA);
@@ -130,4 +133,18 @@ void affichageEchape(rectangle rectechape, rectangle rectfond, ALLEGRO_FONT* min
 void actuaRectEchape(rectangle rectreprendre, rectangle rectExit, ALLEGRO_FONT* miniOrbitron);
 void actuaRect(rectangle rectNext, ALLEGRO_FONT* miniOrbitron);
 void afficherTableau (int tab[LIGNES_TAB][COLONNES_TAB]);
+
+//sorts
+void Eblouisssement(Joueurs *JoueurActuel, Joueurs *listeJ);
+void Scintillement(Joueurs *JoueurActuel, Joueurs *listeJ);
+void ExtraSolar(Joueurs *JoueurActuel, Joueurs *listeJ);
+void Guerison(Joueurs *JoueurActuel);
+void FlecheEmpoisonnee(Joueurs *JoueurActuel, Joueurs *listeJ);
+void TirDroit(Joueurs *JoueurActuel, Joueurs *listeJ);
+void Etincelle(Joueurs *JoueurActuel, Joueurs *listeJ);
+void Lava(Joueurs *JoueurActuel, Joueurs *listeJ);
+void LanceFlamme(Joueurs *JoueurActuel, Joueurs *listeJ);
+void Elipse(Joueurs *joueurActuel,Joueurs *listeJ);
+void CercleVicieux(Joueurs *JoueurActuel);
+void DisqueTranchant(Joueurs *JA, Joueurs *listeJ);
 #endif //PROJET_GENERAL_H

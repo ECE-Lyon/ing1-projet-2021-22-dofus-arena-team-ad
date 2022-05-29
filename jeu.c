@@ -15,7 +15,38 @@ void JEU(Joueurs* listeJ){
     affichage(tabArene, TabObstacle, tabChemin, listeJ);
 }
 
-void JEU2(Joueurs* listeJ){
+void libererListe( Joueurs ** liste){
+        Joueurs * stock=NULL;
+        while (*liste != NULL){
+            stock= (*liste)->next;
+            free(*liste);
+            *liste= stock;
+        }
+        * liste =NULL;
+}
+void destroy(Image decors, ALLEGRO_DISPLAY *display, ALLEGRO_TIMER *timer, ALLEGRO_EVENT_QUEUE *queue, ALLEGRO_FONT *Megrim, ALLEGRO_FONT *Orbitron, ALLEGRO_FONT *miniOrbitron,
+             ALLEGRO_FONT *microOrbitron, ALLEGRO_SAMPLE *FightSong, ALLEGRO_SAMPLE_INSTANCE *FightSongInstance,
+             ALLEGRO_SAMPLE *tic, ALLEGRO_SAMPLE *clik) {
+    al_destroy_display(display);
+    al_destroy_timer(timer);
+    al_destroy_bitmap(decors.perso);
+    al_destroy_bitmap(decors.Soleil);
+    al_destroy_bitmap(decors.rocher);
+    al_destroy_bitmap(decors.meteor);
+    al_destroy_bitmap(decors.cailloux);
+    al_destroy_bitmap(decors.fleur);
+    al_destroy_event_queue(queue);
+    al_destroy_font(Megrim);
+    al_destroy_font(Orbitron);
+    al_destroy_font(miniOrbitron);
+    al_destroy_font(microOrbitron);
+    al_destroy_sample(FightSong);
+    al_destroy_sample_instance(FightSongInstance);
+    al_destroy_sample(tic);
+    al_destroy_sample(clik);
+}
+
+/*void JEU2(Joueurs* listeJ){
     Coords positionJoueur;
     Coords tabChemin[PM_MAX];
     int tabArene[LIGNES_TAB][COLONNES_TAB];
@@ -183,7 +214,7 @@ void JEU2(Joueurs* listeJ){
                 else{
                     if (hitBoxR(rectNext, event.mouse.x, event.mouse.y)) {
                         al_play_sample(clik, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, 0);
-                        passerJnext(&JA,listeJ);
+                        passerJnext(JA,listeJ);
                         peindre=true;
                     }
                 }
@@ -236,10 +267,10 @@ void JEU2(Joueurs* listeJ){
                 break;
             case ALLEGRO_EVENT_TIMER:
                 time = al_get_timer_count(timer)%1800;
-                /*if (time == 1799) {
+                if (time == 1799) {
                     JA = *JA.next;
                     peindre=true;
-                }*/
+                }
                 if(peindre){
                     affichageG(arene, sort1, sort2, sort3, rectNext, miniOrbitron, Orbitron, BLANC, JA);
                     peindre = false;
@@ -275,3 +306,4 @@ void JEU2(Joueurs* listeJ){
     al_destroy_bitmap(icon);
 }
 
+*/
