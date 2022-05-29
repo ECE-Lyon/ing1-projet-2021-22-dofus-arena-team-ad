@@ -437,6 +437,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     int ySouris;
     int i, ligne = 0, colonne = 0, decors = 0;
     int determinerChemin = 0;
+    long tempsTour = 0;
     Coords positionFinale;
     joueurActuel = listeJ;
     joueurActuel->pm = 0; // init du PM joueur pour le modifier en fonction du deplacement --> (à faire dans init des joueurs)
@@ -763,41 +764,66 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                 if (event.mouse.x >= LARGEUR * (0.82) && event.mouse.x <= LARGEUR * (0.82) + 100 &&
                     event.mouse.y >= HAUTEUR * (0.35) &&
                     event.mouse.y <= HAUTEUR * (0.35) + 100) {
-                    al_draw_text(Megrim, BLANC, LARGEUR*(0.82), HAUTEUR*(0.42), 0, joueurActuel.classeJ.sort[0].nom);
+                    al_draw_text(Megrim, BLANC, LARGEUR*(0.75), HAUTEUR*(0.42), 0, joueurActuel->classeJ.sort[0].nom);
                     al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.5),0,"Dégats : ");
-                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.5), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[0].degat);
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.5), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[0].degat);
                     al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.55),0,"Consomation : ");
-                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[0].PA);
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[0].PA);
                     al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.6),0,"Portée : ");
-                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[0].portee);
+                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[0].portee);
                     al_flip_display();
                 }
 
               else  if (event.mouse.x >= LARGEUR * (0.87) && event.mouse.x <= LARGEUR * (0.87) + 100 &&
                     event.mouse.y >= HAUTEUR * (0.35) &&
                     event.mouse.y <= HAUTEUR * (0.35) + 100) {
-                    al_draw_text(Megrim, BLANC, LARGEUR*(0.82), HAUTEUR*(0.42), 0, joueurActuel.classeJ.sort[1].nom);
-                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.5),0,"Dégats : ");
-                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.5), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[1].degat);
-                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.55),0,"Consomation : ");
-                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[1].PA);
-                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.6),0,"Portée : ");
-                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[1].portee);
+                    if (joueurActuel->classeJ.numClasse == 1) {
+                        al_draw_text(Megrim, BLANC, LARGEUR*(0.75), HAUTEUR*(0.42), 0,"Flèche");
+                        al_draw_text(Megrim, BLANC, LARGEUR*(0.75), HAUTEUR*(0.48), 0,"empoisonée");
+                        al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.55),0,"Dégats : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[1].degat);
+                        al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.6),0,"Consomation : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[1].PA);
+                        al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.65),0,"Portée : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.65), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[1].portee);
+                    } else {
+                        al_draw_text(Megrim, BLANC, LARGEUR*(0.75), HAUTEUR*(0.42), 0, joueurActuel->classeJ.sort[1].nom);
+                        al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.5),0,"Dégats : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.5), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[1].degat);
+                        al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.55),0,"Consomation : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[1].PA);
+                        al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.6),0,"Portée : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[1].portee);
+                    }
                     al_flip_display();
                 
                 }
                else if (event.mouse.x >= LARGEUR * (0.92) && event.mouse.x <= LARGEUR * (0.92) + 100 &&
                     event.mouse.y >= HAUTEUR * (0.35) &&
                     event.mouse.y <= HAUTEUR * (0.35) + 100) {
-                    al_draw_text(Megrim, BLANC,LARGEUR*(0.82), HAUTEUR*(0.42), 0, joueurActuel.classeJ.sort[2].nom);
-                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.5),0,"Dégats : ");
-                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.5), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[2].degat);
-                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.55),0,"Consomation : ");
-                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[2].PA);
-                    al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.6),0,"Portée : ");
-                    al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel.classeJ.sort[2].portee);
+                    if (joueurActuel->classeJ.numClasse == 3) {
+                        al_draw_text(Megrim, BLANC,LARGEUR*(0.75), HAUTEUR*(0.42), 0,"Disque");
+                        al_draw_text(Megrim, BLANC,LARGEUR*(0.75), HAUTEUR*(0.48), 0,"tranchant");
+                        al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.55),0,"Dégats : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[2].degat);
+                        al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.6),0,"Consomation : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[2].PA);
+                        al_draw_text(miniOrbitron,BLANC,LARGEUR*(0.76),HAUTEUR*(0.65),0,"Portée : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.65), ALLEGRO_ALIGN_RIGHT, "%d", joueurActuel->classeJ.sort[2].portee);
+                    } else {
+                        al_draw_text(Megrim, BLANC, LARGEUR * (0.75), HAUTEUR * (0.42), 0,
+                                     joueurActuel->classeJ.sort[2].nom);
+                        al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.76), HAUTEUR * (0.5), 0, "Dégats : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.5), ALLEGRO_ALIGN_RIGHT, "%d",
+                                      joueurActuel->classeJ.sort[2].degat);
+                        al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.76), HAUTEUR * (0.55), 0, "Consomation : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.55), ALLEGRO_ALIGN_RIGHT,
+                                      "%d", joueurActuel->classeJ.sort[2].PA);
+                        al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.76), HAUTEUR * (0.6), 0, "Portée : ");
+                        al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.6), ALLEGRO_ALIGN_RIGHT, "%d",
+                                      joueurActuel->classeJ.sort[2].portee);
+                    }
                     al_flip_display();
-                   
 
                 } else {
                     dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
@@ -853,6 +879,10 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
             }
             case ALLEGRO_EVENT_TIMER: {
                 cmptimage = (cmptimage + 1) % NB_IMAGES;
+                tempsTour = al_get_timer_count(timer)%1800;
+                if (tempsTour == 1799) {
+                    joueurActuel = joueurActuel->next;
+                }
                 break;
             }
         }
