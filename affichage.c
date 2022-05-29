@@ -754,6 +754,9 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                                       ligne, colonne, tabArene, joueurActuel->pm, cmptimage, listeJ, joueurActuel,
                                       rectNext, miniOrbitron, Orbitron, BLANC);
                     }
+                    if (joueurActuel->pm >= PM_MAX) {
+                        joueurActuel->pm = 0;
+                    }
                 }
                 break;
             }
