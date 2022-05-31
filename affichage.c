@@ -577,7 +577,23 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                 printf("allegro button down\n");
                 xSouris = event.mouse.x + TAILLE_CASE;
                 ySouris = event.mouse.y + TAILLE_CASE;
-                //modifs 22/05
+
+                for (int i = 0; i < LIGNES_TAB; ++i) {
+                    if (tabCase[i][0].y < ySouris && ySouris > tabCase[i][0].y + TAILLE_CASE) {
+                        ligneSouris = i;
+                        positionFinale.ligne = i + 1;
+                    }
+                }
+                for (int j = 0; j < COLONNES_TAB; ++j) {
+                    if ((float) tabCase[0][j].x<(float) xSouris && (float) xSouris>(float)tabCase[0][j].x +
+                                                                                          TAILLE_CASE) {
+                        colonneSouris = j;
+                        positionFinale.colonne = j;
+                    }
+                }
+                // variable pour determiner si le deplacement et possible ou non (cas d'un obstacle/ d'un PM> PM max)
+                determinerChemin = 0;
+
 
                 //pour detecter le clic si on a cliquer sur escape
                 if (echape) {
@@ -643,7 +659,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                     event.mouse.y >= HAUTEUR * (0.538) &&
                     event.mouse.y <= HAUTEUR * (0.538) + 100) {
 */
-                if (event.mouse.x >= LARGEUR * (0.82) && event.mouse.x <= LARGEUR * (0.82) + 100 &&
+                else if (event.mouse.x >= LARGEUR * (0.82) && event.mouse.x <= LARGEUR * (0.82) + 100 &&
                     event.mouse.y >= HAUTEUR * (0.538) &&
                     event.mouse.y <= HAUTEUR * (0.538) + 100) {
                     printf(" SORT 2 OK: %s", joueurActuel->classeJ.sort[1].nom);
@@ -681,7 +697,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                      event.mouse.y >= HAUTEUR * (0.538) &&
                      event.mouse.y <= HAUTEUR * (0.538) + 100) {
  */
-                if (event.mouse.x >= LARGEUR * (0.92) && event.mouse.x <= LARGEUR * (0.92) + 100 &&
+                else if (event.mouse.x >= LARGEUR * (0.92) && event.mouse.x <= LARGEUR * (0.92) + 100 &&
                     event.mouse.y >= HAUTEUR * (0.538) &&
                     event.mouse.y <= HAUTEUR * (0.538) + 100) {
                     printf(" SORT 3 OK: %s", joueurActuel->classeJ.sort[2].nom);
@@ -711,23 +727,8 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                     }
                 }
                 // debut de determiner le chemin --> DEPLACEMENT
-                for (int i = 0; i < LIGNES_TAB; ++i) {
-                    if (tabCase[i][0].y < ySouris && ySouris > tabCase[i][0].y + TAILLE_CASE) {
-                        ligneSouris = i;
-                        positionFinale.ligne = i + 1;
-                    }
-                }
-                for (int j = 0; j < COLONNES_TAB; ++j) {
-                    if ((float) tabCase[0][j].x<(float) xSouris && (float) xSouris>(float)tabCase[0][j].x +
-                                                                                          TAILLE_CASE) {
-                        colonneSouris = j;
-                        positionFinale.colonne = j;
-                    }
-                }
-                // variable pour determiner si le deplacement et possible ou non (cas d'un obstacle/ d'un PM> PM max)
-                determinerChemin = 0;
                 // on verifie que le joueur n'a pas atteint la position finale et n'as pas fait 3PM de deplacement
-                if (joueurActuel->pm < PM_MAX && (joueurActuel->positionJ.colonne != positionFinale.colonne ||
+                else if (joueurActuel->pm < PM_MAX && (joueurActuel->positionJ.colonne != positionFinale.colonne ||
                                                   joueurActuel->positionJ.ligne != positionFinale.ligne)) {
 // on va determiner le chemin si la position finale n'est pas atteinte et si le deplacement est possible
                     while (determinerChemin == 0 && joueurActuel->pm < PM_MAX &&
@@ -754,9 +755,9 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                                       ligne, colonne, tabArene, joueurActuel->pm, cmptimage, listeJ, joueurActuel,
                                       rectNext, miniOrbitron, Orbitron, BLANC);
                     }
-                    if (joueurActuel->pm >= PM_MAX) {
-                        joueurActuel->pm = 0;
-                    }
+                    //if (joueurActuel->pm >= PM_MAX) {
+                     //   joueurActuel->pm = 0;
+                    //}
                 }
                 break;
             }

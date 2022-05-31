@@ -230,4 +230,5 @@ Joueurs* initialisationJ(int nbJ, Joueurs* listeJ){
         }
         tempo->pv = (*JA)->pv;
         *JA = (*JA)->next;
+        (*JA)->pm = 0;
     }
