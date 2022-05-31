@@ -267,7 +267,7 @@ void dessinerMap(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int co
 void affichageMenuPerso(ALLEGRO_BITMAP *sort1, ALLEGRO_BITMAP *sort2, ALLEGRO_BITMAP *sort3, rectangle rectNext,
                         ALLEGRO_FONT *miniOrbitron,
                         ALLEGRO_FONT *Orbitron,
-                        ALLEGRO_COLOR BLANC, Joueurs JA) {
+                        ALLEGRO_COLOR BLANC, Joueurs JA, long tempsTour) {
     al_draw_text(Orbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.05), ALLEGRO_ALIGN_RIGHT, JA.nom);
     al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.15), ALLEGRO_ALIGN_RIGHT, "PV :");
     al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.15), ALLEGRO_ALIGN_RIGHT, "%d", JA.pv);
@@ -275,6 +275,11 @@ void affichageMenuPerso(ALLEGRO_BITMAP *sort1, ALLEGRO_BITMAP *sort2, ALLEGRO_BI
     al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.20), ALLEGRO_ALIGN_RIGHT, "%d", JA.pa);
     al_draw_text(miniOrbitron, BLANC, LARGEUR * (0.88), HAUTEUR * (0.25), ALLEGRO_ALIGN_RIGHT, "PM : ");
     al_draw_textf(miniOrbitron, BLANC, LARGEUR * (0.95), HAUTEUR * (0.25), ALLEGRO_ALIGN_RIGHT, "%d",PM_MAX - (JA.pm));
+    al_draw_text(miniOrbitron, BLANC, LARGEUR*(0.88), HAUTEUR *(0.70),ALLEGRO_ALIGN_RIGHT, "Joueur Suivant : ");
+    al_draw_textf(miniOrbitron, BLANC, LARGEUR*(0.95), HAUTEUR *(0.70),ALLEGRO_ALIGN_RIGHT, "%s", (JA.next)->nom);
+    al_draw_text(miniOrbitron, BLANC, LARGEUR*(0.88), HAUTEUR*(0.95), ALLEGRO_ALIGN_RIGHT, "temps restant : ");
+    al_draw_textf(miniOrbitron, BLANC, LARGEUR*(0.95), HAUTEUR *(0.95),ALLEGRO_ALIGN_RIGHT, "%ld", 20-(tempsTour/100));
+
     al_draw_bitmap(sort1, LARGEUR * (0.82), HAUTEUR * (0.35), 0);
     al_draw_bitmap(sort2, LARGEUR * (0.87), HAUTEUR * (0.35), 0);
     al_draw_bitmap(sort3, LARGEUR * (0.92), HAUTEUR * (0.35), 0);
@@ -287,10 +292,10 @@ void dessinerTout(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligneSouris, int c
                   int colonne, int tabArene[LIGNES_TAB][COLONNES_TAB], Coords tabChemin[PM_MAX + 1],
                   Coords positionJoueur, ALLEGRO_BITMAP *anim[], int cmptImage, Joueurs *listeJ, Joueurs *jActuel,
         //modifs 21/05
-                  rectangle rectNext, ALLEGRO_FONT *miniOrbitron, ALLEGRO_FONT *Orbitron, ALLEGRO_COLOR BLANC) {
+                  rectangle rectNext, ALLEGRO_FONT *miniOrbitron, ALLEGRO_FONT *Orbitron, ALLEGRO_COLOR BLANC, long tempsTour) {
     dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ, jActuel);
     //modifs 21/05
-    affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC, *jActuel);
+    affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC, *jActuel, tempsTour);
     affichagePorte(tabCase, jActuel->positionJ.ligne, jActuel->positionJ.colonne, tabArene, jActuel->pm);
     dessinerPerso(anim, cmptImage, positionJoueur.ligne, positionJoueur.colonne, *jActuel);
     al_flip_display();
@@ -302,7 +307,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                    int tabArene[LIGNES_TAB][COLONNES_TAB], int PMJoueur, int compteurImage, Joueurs *listeJ,
                    Joueurs *jActuel,
         //modifs 21/05
-                   rectangle rectNext, ALLEGRO_FONT *miniOrbitron, ALLEGRO_FONT *Orbitron, ALLEGRO_COLOR BLANC) {
+                   rectangle rectNext, ALLEGRO_FONT *miniOrbitron, ALLEGRO_FONT *Orbitron, ALLEGRO_COLOR BLANC, long tempsTour) {
 
     int tailleTab = 0; // (taille Logique) pour parcourir le tab de chemin et faire se deplacer le joueur en fonction du nb de PM
     Coords positionJoueur;
@@ -327,7 +332,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
             printf("position atteinte\n");
             dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
                          positionJoueur, anim, compteurImage, listeJ, jActuel, rectNext, miniOrbitron, Orbitron,
-                         BLANC);
+                         BLANC, tempsTour);
         }
 
         // on va verifier à chaque fois que le perso bouge son placeement par rapport a la position finale ( deplacement horizontal / vertical...)
@@ -338,7 +343,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ,
                             jActuel);
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
-                                   *jActuel);
+                                   *jActuel, tempsTour);
                 dessinerPerso(anim, compteurImage, positionJoueur.ligne, (x - 80) / 100, *jActuel);
                 al_flip_display();
                 sleep(1);
@@ -353,7 +358,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ,
                             jActuel);
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
-                                   *jActuel);
+                                   *jActuel, tempsTour);
                 dessinerPerso(anim, compteurImage, positionJoueur.ligne, (x - 80) / 100, *jActuel);
                 al_flip_display();
                 sleep(1);
@@ -369,7 +374,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ,
                             jActuel);
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
-                                   *jActuel);
+                                   *jActuel, tempsTour);
                 dessinerPerso(anim, compteurImage, (y - 85) / 100, positionJoueur.colonne, *jActuel);
                 al_flip_display();
                 sleep(1);
@@ -382,7 +387,7 @@ void afficherPerso(Coords tabChemin[PM_MAX + 1], ALLEGRO_BITMAP *anim[], Case ta
                 dessinerMap(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin, listeJ,
                             jActuel);
                 affichageMenuPerso(decor.sort1, decor.sort2, decor.sort3, rectNext, miniOrbitron, Orbitron, BLANC,
-                                   *jActuel);
+                                   *jActuel, tempsTour);
                 dessinerPerso(anim, compteurImage, (y - 85) / 100, positionJoueur.colonne, *jActuel);
 
                 al_flip_display();
@@ -545,7 +550,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     // on dessine la Map et les persos une première fois
     dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
                  joueurActuel->positionJ,
-                 anim, cmptimage, listeJ, joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
+                 anim, cmptimage, listeJ, joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC, tempsTour);
 // mise en place de la boucle d'evenements
     while (!end) {
         al_wait_for_event(queue, &event);
@@ -653,7 +658,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 
                     dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
                                  joueurActuel->positionJ,
-                                 anim, cmptimage, listeJ, joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
+                                 anim, cmptimage, listeJ, joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC, tempsTour);
                 }
                 /*if (event.mouse.x >= LARGEUR * (0.783) && event.mouse.x <= LARGEUR * (0.783) + 100 &&
                     event.mouse.y >= HAUTEUR * (0.538) &&
@@ -688,7 +693,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                                          tabChemin,
                                          joueurActuel->positionJ,
                                          anim, cmptimage, listeJ, joueurActuel, rectNext, miniOrbitron, Orbitron,
-                                         BLANC);
+                                         BLANC, tempsTour);
 
                     }
                 }
@@ -753,7 +758,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                     if (determinerChemin == 0 && joueurActuel->pm <= PM_MAX) {
                         afficherPerso(tabChemin, anim, tabCase, ligneSouris, colonneSouris, decor,
                                       ligne, colonne, tabArene, joueurActuel->pm, cmptimage, listeJ, joueurActuel,
-                                      rectNext, miniOrbitron, Orbitron, BLANC);
+                                      rectNext, miniOrbitron, Orbitron, BLANC, tempsTour);
                     }
                     //if (joueurActuel->pm >= PM_MAX) {
                      //   joueurActuel->pm = 0;
@@ -832,7 +837,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                 } else {
                     dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene, tabChemin,
                                  joueurActuel->positionJ,
-                                 anim, cmptimage, listeJ, joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC);
+                                 anim, cmptimage, listeJ, joueurActuel, rectNext, miniOrbitron, Orbitron, BLANC, tempsTour);
 
                 }
 
