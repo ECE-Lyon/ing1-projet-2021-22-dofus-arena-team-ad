@@ -60,7 +60,7 @@ typedef struct{
 }classe;
 
 typedef struct {
-    ALLEGRO_BITMAP * rocher, *Soleil, *perso, *cailloux,*fleur, *meteor, *herbe, *Mars, *sort1, *sort2, *sort3, *imJ, *Terre, *Saturne;
+    ALLEGRO_BITMAP * rocher, *Soleil, *perso, *cailloux,*fleur, *meteor, *herbe, *Mars, *sort1, *sort2, *sort3, *imJ, *Terre, *Saturne, *etoile;
     char nom[100];
 }Image;
 

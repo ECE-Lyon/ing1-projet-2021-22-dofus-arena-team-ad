@@ -628,13 +628,13 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                     event.mouse.y >= HAUTEUR * (0.538) &&
                     event.mouse.y <= HAUTEUR * (0.538) + 100) {
 */
-                if (event.mouse.x >= LARGEUR * (0.72) && event.mouse.x <= LARGEUR * (0.72) + 100 &&
-                    event.mouse.y >= HAUTEUR * (0.538) &&
-                    event.mouse.y <= HAUTEUR * (0.538) + 100) {
+                if (event.mouse.x >= LARGEUR * (0.82) && event.mouse.x <= LARGEUR * (0.82) + 100 &&
+                    event.mouse.y >= HAUTEUR * (0.35) &&
+                    event.mouse.y <= HAUTEUR * (0.35) + 100) {
 
                     printf(" SORT 1 OK : %s", joueurActuel->classeJ.sort[0].nom);
 
-                    switch (classe) {
+                    switch (joueurActuel->classeJ.numClasse) {
 
                         case 0 : {
                             Eblouisssement(joueurActuel, listeJ);
@@ -645,12 +645,10 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                             break;
                         }
                         case 2 : {
-
                             Etincelle(joueurActuel, listeJ);
                             break;
                         }
                         case 3 : {
-
                             Elipse(joueurActuel, listeJ);
                             break;
                         }
@@ -664,19 +662,17 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                     event.mouse.y >= HAUTEUR * (0.538) &&
                     event.mouse.y <= HAUTEUR * (0.538) + 100) {
 */
-                else if (event.mouse.x >= LARGEUR * (0.82) && event.mouse.x <= LARGEUR * (0.82) + 100 &&
-                    event.mouse.y >= HAUTEUR * (0.538) &&
-                    event.mouse.y <= HAUTEUR * (0.538) + 100) {
+                else if (event.mouse.x >= LARGEUR * (0.87) && event.mouse.x <= LARGEUR * (0.87) + 100 &&
+                    event.mouse.y >= HAUTEUR * (0.35) &&
+                    event.mouse.y <= HAUTEUR * (0.35) + 100) {
                     printf(" SORT 2 OK: %s", joueurActuel->classeJ.sort[1].nom);
 
-                    switch (classe) {
-
+                    switch (joueurActuel->classeJ.numClasse) {
                         case 0 : {
                             Scintillement(joueurActuel, listeJ);
                             break;
                         }
                         case 1 : {
-
                             FlecheEmpoisonnee(joueurActuel, listeJ);
                             break;
                         }
@@ -685,7 +681,6 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                             break;
                         }
                         case 3 : {
-
                             CercleVicieux(joueurActuel);
                             break;
                         }
@@ -703,24 +698,20 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                      event.mouse.y <= HAUTEUR * (0.538) + 100) {
  */
                 else if (event.mouse.x >= LARGEUR * (0.92) && event.mouse.x <= LARGEUR * (0.92) + 100 &&
-                    event.mouse.y >= HAUTEUR * (0.538) &&
-                    event.mouse.y <= HAUTEUR * (0.538) + 100) {
+                    event.mouse.y >= HAUTEUR * (0.35) &&
+                    event.mouse.y <= HAUTEUR * (0.35) + 100) {
                     printf(" SORT 3 OK: %s", joueurActuel->classeJ.sort[2].nom);
 
-                    switch (classe) {
-
+                    switch (joueurActuel->classeJ.numClasse) {
                         case 0 : {
-
                             ExtraSolar(joueurActuel, listeJ);
                             break;
                         }
                         case 1 : {
-
                             TirDroit(joueurActuel, listeJ);
                             break;
                         }
                         case 2 : {
-
                             LanceFlamme(joueurActuel, listeJ);
                             break;
                         }
@@ -728,7 +719,6 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                             DisqueTranchant(joueurActuel, listeJ);
                             break;
                         }
-
                     }
                 }
                 // debut de determiner le chemin --> DEPLACEMENT
