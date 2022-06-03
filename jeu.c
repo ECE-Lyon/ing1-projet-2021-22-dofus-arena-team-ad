@@ -13,6 +13,7 @@ void JEU(Joueurs* listeJ){
     intialisationArene(tabArene, TabObstacle);
     //affichage du jeu complet + deplacement du joueur
     affichage(tabArene, TabObstacle, tabChemin, listeJ);
+    destructionListe(&listeJ);
 }
 
 void libererListe( Joueurs ** liste){

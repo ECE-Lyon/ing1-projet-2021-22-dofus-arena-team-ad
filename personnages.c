@@ -232,3 +232,15 @@ Joueurs* initialisationJ(int nbJ, Joueurs* listeJ){
         *JA = (*JA)->next;
         (*JA)->pm = 0;
     }
+
+void destructionListe(Joueurs** listeJ){
+    Joueurs *head = *listeJ;
+    Joueurs *temp = NULL;
+
+    while (head!=NULL){
+        temp = head->next;
+        free(head);
+        head = temp;
+    }
+    *listeJ = NULL;
+}

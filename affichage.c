@@ -645,10 +645,12 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                             break;
                         }
                         case 2 : {
+
                             Etincelle(joueurActuel, listeJ);
                             break;
                         }
                         case 3 : {
+
                             Elipse(joueurActuel, listeJ);
                             break;
                         }
@@ -673,6 +675,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                             break;
                         }
                         case 1 : {
+
                             FlecheEmpoisonnee(joueurActuel, listeJ);
                             break;
                         }
@@ -681,6 +684,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                             break;
                         }
                         case 3 : {
+
                             CercleVicieux(joueurActuel);
                             break;
                         }
@@ -704,14 +708,17 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 
                     switch (joueurActuel->classeJ.numClasse) {
                         case 0 : {
+
                             ExtraSolar(joueurActuel, listeJ);
                             break;
                         }
                         case 1 : {
+
                             TirDroit(joueurActuel, listeJ);
                             break;
                         }
                         case 2 : {
+
                             LanceFlamme(joueurActuel, listeJ);
                             break;
                         }
@@ -719,6 +726,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                             DisqueTranchant(joueurActuel, listeJ);
                             break;
                         }
+
                     }
                 }
                 // debut de determiner le chemin --> DEPLACEMENT
@@ -888,4 +896,5 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     }
     destroy(decor, display, timer, queue, Megrim, Orbitron, miniOrbitron, microOrbitron, FightSong,
             FightSongInstance, tic, clik);
+    destructionListe(&listeJ);
 }
