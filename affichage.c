@@ -641,7 +641,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                             break;
                         }
                         case 1 : {
-                            Guerison(joueurActuel);
+                            Guerison(joueurActuel,listeJ);
                             break;
                         }
                         case 2 : {
@@ -685,7 +685,7 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
                         }
                         case 3 : {
 
-                            CercleVicieux(joueurActuel);
+                            CercleVicieux(joueurActuel,listeJ);
                             break;
                         }
                             dessinerTout(tabCase, ligneSouris, colonneSouris, decor, ligne, colonne, tabArene,

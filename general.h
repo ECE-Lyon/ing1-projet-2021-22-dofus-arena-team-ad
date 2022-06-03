@@ -11,8 +11,8 @@
 #include <allegro5/allegro_acodec.h>
 
 
-#define LARGEUR 1365
-#define HAUTEUR 835
+#define LARGEUR 2880
+#define HAUTEUR 1694
 #define ECRAN_LONGUEUR 1365
 #define ECRAN_LARGEUR 835
 #define NBLETTRE 21
