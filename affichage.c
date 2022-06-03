@@ -898,4 +898,5 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
     }
     destroy(decor, display, timer, queue, Megrim, Orbitron, miniOrbitron, microOrbitron, FightSong,
             FightSongInstance, tic, clik);
+    destructionListe(&listeJ);
 }

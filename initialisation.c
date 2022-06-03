@@ -17,4 +17,5 @@ void initialisation (){
     if(play){
         JEU(listeJoueurs);//Créer une fonction JEU comme dans le general.h et met ton code dedans
     }
+    destructionListe(&listeJoueurs);
 }

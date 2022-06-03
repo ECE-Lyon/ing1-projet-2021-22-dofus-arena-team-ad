@@ -11,10 +11,10 @@
 #include <allegro5/allegro_acodec.h>
 
 
-#define LARGEUR 2880
-#define HAUTEUR 1694
-#define ECRAN_LONGUEUR 2880
-#define ECRAN_LARGEUR 1694
+#define LARGEUR 1365
+#define HAUTEUR 835
+#define ECRAN_LONGUEUR 1365
+#define ECRAN_LARGEUR 835
 #define NBLETTRE 21
 #define INFINI 100
 #define LIGNES_TAB 15
@@ -132,6 +132,7 @@ void affichageEchape(rectangle rectechape, rectangle rectfond, ALLEGRO_FONT* min
 void actuaRectEchape(rectangle rectreprendre, rectangle rectExit, ALLEGRO_FONT* miniOrbitron);
 void actuaRect(rectangle rectNext, ALLEGRO_FONT* miniOrbitron);
 void afficherTableau (int tab[LIGNES_TAB][COLONNES_TAB]);
+void destructionListe(Joueurs** listeJ);
 
 //sorts
 void Eblouisssement(Joueurs *JoueurActuel, Joueurs *listeJ);
