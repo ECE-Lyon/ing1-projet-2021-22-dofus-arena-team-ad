@@ -39,7 +39,6 @@ void affichage(int tabArene[LIGNES_TAB][COLONNES_TAB], int TabObstacle[LIGNES_TA
 void dessinerPerso(ALLEGRO_BITMAP *anim[], int cmptImage, int positionJoueurLigne, int positionJoueurColonne,Joueurs joueur);
 void InitImageJ(Joueurs* liste, ALLEGRO_BITMAP * ImPerso);
 void afficherLesAutresJoueurs(Joueurs *listeJ, Joueurs *jActuel);
-int valeureAbsolue(int i, int j);
 void dessinerFond(int numClasseJA, Image decor);
 void dessinerInterfaceJoueur(ALLEGRO_FONT* font, ALLEGRO_FONT* font1, char text[INFINI],Joueurs * J,ALLEGRO_BITMAP *sort1, ALLEGRO_BITMAP *sort2, ALLEGRO_BITMAP *sort3);
 void affichagePorte(Case tabCase[LIGNES_TAB][COLONNES_TAB], int ligne, int colonne,int tabArene[LIGNES_TAB][COLONNES_TAB], int PMJ);

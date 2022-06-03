@@ -113,6 +113,7 @@ unsigned char hitBoxR(rectangle r, int x, int y);
 void textCredit(rectangle r, ALLEGRO_FONT* microOrbiton);
 void cadreClasse(rectangle CadreClasse1, rectangle CadreClasse2, rectangle CadreClasse3,rectangle CadreClasse4);
 void AffichageIconePerso(ALLEGRO_BITMAP* SOLARIS,ALLEGRO_BITMAP* TERRA,ALLEGRO_BITMAP* MARTIAN,ALLEGRO_BITMAP* SATURNA, rectangle Carre1, rectangle Carre2,rectangle Carre3,rectangle Carre4);
+int valeureAbsolue(int i, int j);
 
 //personnages
 Joueurs* initialisationJ(int nbJ, Joueurs* listeJ);
@@ -138,13 +139,13 @@ void destructionListe(Joueurs** listeJ);
 void Eblouisssement(Joueurs *JoueurActuel, Joueurs *listeJ);
 void Scintillement(Joueurs *JoueurActuel, Joueurs *listeJ);
 void ExtraSolar(Joueurs *JoueurActuel, Joueurs *listeJ);
-void Guerison(Joueurs *JoueurActuel);
+void Guerison(Joueurs *JoueurActuel, Joueurs *listeJ);
 void FlecheEmpoisonnee(Joueurs *JoueurActuel, Joueurs *listeJ);
 void TirDroit(Joueurs *JoueurActuel, Joueurs *listeJ);
 void Etincelle(Joueurs *JoueurActuel, Joueurs *listeJ);
 void Lava(Joueurs *JoueurActuel, Joueurs *listeJ);
 void LanceFlamme(Joueurs *JoueurActuel, Joueurs *listeJ);
 void Elipse(Joueurs *joueurActuel,Joueurs *listeJ);
-void CercleVicieux(Joueurs *JoueurActuel);
+void CercleVicieux(Joueurs *JoueurActuel, Joueurs *listeJ);
 void DisqueTranchant(Joueurs *JA, Joueurs *listeJ);
 #endif //PROJET_GENERAL_H

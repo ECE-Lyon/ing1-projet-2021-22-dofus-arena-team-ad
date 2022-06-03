@@ -2,11 +2,21 @@
 // Created by Mona Lias on 5/20/22.
 //
 #include "general.h"
+
+int verifPortee (Joueurs *JA, Joueurs *lJ, int n) {
+    Joueurs *JS = lJ->next;
+    int d = valeureAbsolue(JS->positionJ.ligne,JS->positionJ.colonne);
+    if (JA->classeJ.sort[n].portee <= d){
+        return 1;
+    } else {return 0;}
+}
+
 void Eblouisssement(Joueurs *JoueurActuel, Joueurs *listeJ) {
 
     Joueurs *JoueurSuivant = listeJ->next;
+    int v = verifPortee(JoueurActuel,listeJ,0);
 
-    if (JoueurSuivant != listeJ && JoueurActuel->pa >= JoueurActuel->classeJ.sort[0].PA) {
+    if (JoueurSuivant != listeJ && JoueurActuel->pa >= JoueurActuel->classeJ.sort[0].PA && v == 1) {
         JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[0].PA;
         JoueurSuivant->Eblouissement = true;
     }
@@ -20,8 +30,9 @@ void Eblouisssement(Joueurs *JoueurActuel, Joueurs *listeJ) {
 void Scintillement(Joueurs *JoueurActuel, Joueurs *listeJ){
 
     Joueurs *JoueurSuivant = listeJ->next;
+    int v = verifPortee(JoueurActuel,listeJ,0);
 
-    if (JoueurSuivant != listeJ && JoueurActuel->pa >= JoueurActuel->classeJ.sort[1].PA){
+    if (JoueurSuivant != listeJ && JoueurActuel->pa >= JoueurActuel->classeJ.sort[1].PA && v == 1){
         JoueurSuivant->pv = JoueurSuivant->pv + JoueurActuel->classeJ.sort[1].degat;
         JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[1].PA;
         return;
@@ -42,10 +53,10 @@ void Scintillement(Joueurs *JoueurActuel, Joueurs *listeJ){
 void ExtraSolar(Joueurs *JoueurActuel, Joueurs *listeJ){
 
     Joueurs *JoueurSuivant = listeJ->next;
-
+    int v = verifPortee(JoueurActuel,listeJ,0);
 
     if (JoueurSuivant != listeJ && JoueurSuivant->positionJ.colonne - JoueurActuel->positionJ.colonne <= abs(3) || JoueurSuivant->positionJ.ligne -JoueurActuel->positionJ.ligne <= abs(3)
-    && JoueurActuel->pa >= JoueurActuel->classeJ.sort[2].PA){
+    && JoueurActuel->pa >= JoueurActuel->classeJ.sort[2].PA && v == 1){
 
         JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[2].PA;
         JoueurSuivant->pv = JoueurSuivant->pv + JoueurActuel->classeJ.sort[2].degat;
@@ -63,9 +74,10 @@ void ExtraSolar(Joueurs *JoueurActuel, Joueurs *listeJ){
 }
 
 
-void Guerison(Joueurs *JoueurActuel){
+void Guerison(Joueurs *JoueurActuel, Joueurs *listeJ){
     printf("Guerison\n");
-    if (JoueurActuel->pa >= JoueurActuel->classeJ.sort[0].PA) {
+    int v = verifPortee(JoueurActuel,listeJ,0);
+    if (JoueurActuel->pa >= JoueurActuel->classeJ.sort[0].PA && v == 1) {
         JoueurActuel->pv = JoueurActuel->pv + JoueurActuel->classeJ.sort[0].degat;
         JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[0].PA;
     } else {
@@ -77,9 +89,10 @@ void FlecheEmpoisonnee(Joueurs *JoueurActuel, Joueurs *listeJ) {
 
     Joueurs *JoueurSuivant = listeJ->next;
     printf("fleche empoisonnée\n");
+    int v = verifPortee(JoueurActuel,listeJ,0);
     if (JoueurSuivant !=listeJ && JoueurSuivant->positionJ.colonne - JoueurActuel->positionJ.colonne <= abs(5) ||
         JoueurSuivant->positionJ.ligne - JoueurActuel->positionJ.ligne <= abs(5) &&
-                JoueurActuel->pa >= JoueurActuel->classeJ.sort[1].PA) {
+                JoueurActuel->pa >= JoueurActuel->classeJ.sort[1].PA && v == 1) {
         JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[1].PA;
         JoueurSuivant->pv = JoueurSuivant->pv + JoueurActuel->classeJ.sort[1].degat;
         return;
@@ -99,10 +112,11 @@ void TirDroit(Joueurs *JoueurActuel, Joueurs *listeJ){
 
 
     Joueurs *JoueurSuivant = listeJ->next;
+    int v = verifPortee(JoueurActuel,listeJ,0);
     printf("Tir Droit\n");
     if (JoueurSuivant != listeJ && JoueurSuivant->positionJ.colonne - JoueurActuel->positionJ.colonne <= abs(5) ||
         JoueurSuivant->positionJ.ligne - JoueurActuel->positionJ.ligne <= abs(5) &&
-                JoueurActuel->pa >= JoueurActuel->classeJ.sort[2].PA) {
+                JoueurActuel->pa >= JoueurActuel->classeJ.sort[2].PA && v == 1) {
 
         JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[2] .PA;
         JoueurSuivant->pv = JoueurSuivant->pv + JoueurActuel->classeJ.sort[2].degat;
@@ -122,10 +136,11 @@ void TirDroit(Joueurs *JoueurActuel, Joueurs *listeJ){
 void Etincelle(Joueurs *JoueurActuel, Joueurs *listeJ){
 
     Joueurs* JoueurSuivant = listeJ->next;
+    int v = verifPortee(JoueurActuel,listeJ,0);
     printf("etincelle\n");
     if ( JoueurSuivant !=listeJ && JoueurSuivant->positionJ.colonne - JoueurActuel->positionJ.colonne <= abs(1) ||
          JoueurSuivant->positionJ.ligne - JoueurActuel->positionJ.ligne <= abs(1) &&
-                 JoueurActuel->pa >= JoueurActuel->classeJ.sort[0].PA) {
+                 JoueurActuel->pa >= JoueurActuel->classeJ.sort[0].PA && v == 1) {
 
         JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[0] .PA;
         JoueurSuivant->pv = JoueurSuivant->pv + JoueurActuel->classeJ.sort[0].degat;
@@ -150,10 +165,11 @@ void Lava(Joueurs *JoueurActuel, Joueurs *listeJ){
     Joueurs* JoueurSuivant = listeJ->next;
 
     printf("Lava\n");
+    int v = verifPortee(JoueurActuel,listeJ,0);
 
     if ( JoueurSuivant != listeJ  && JoueurSuivant->positionJ.colonne - JoueurActuel->positionJ.colonne <= abs(4) ||
          JoueurSuivant->positionJ.ligne - JoueurActuel->positionJ.ligne <= abs(4) &&
-                 JoueurActuel->pa >= JoueurActuel->classeJ.sort[1].PA) {
+                 JoueurActuel->pa >= JoueurActuel->classeJ.sort[1].PA && v == 1) {
         JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[1].PA;
         JoueurSuivant->lava = true;
 
@@ -171,10 +187,11 @@ void LanceFlamme(Joueurs *JoueurActuel, Joueurs *listeJ) {
 
 
     Joueurs* JoueurSuivant = listeJ->next;
+    int v = verifPortee(JoueurActuel,listeJ,0);
 
     if (JoueurSuivant != listeJ && JoueurSuivant->positionJ.ligne - JoueurActuel->positionJ.ligne <= abs(3) ||
         JoueurSuivant->positionJ.colonne - JoueurActuel->positionJ.colonne <= abs(3) &&
-                JoueurActuel->pa >= JoueurActuel->classeJ.sort[2].PA) {
+                JoueurActuel->pa >= JoueurActuel->classeJ.sort[2].PA && v == 1) {
 
         JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[2].PA;
         JoueurSuivant->pv = JoueurSuivant->pv + JoueurActuel->classeJ.sort[2].degat;
@@ -193,16 +210,17 @@ void LanceFlamme(Joueurs *JoueurActuel, Joueurs *listeJ) {
     }
 }
 
-void Elipse(Joueurs *joueurActuel,Joueurs *listeJ){
+void Elipse(Joueurs *JoueurActuel,Joueurs *listeJ){
 
     Joueurs* JoueurSuivant = listeJ->next;
+    int v = verifPortee(JoueurActuel,listeJ,0);
 
-    if ( JoueurSuivant != listeJ && joueurActuel->positionJ.ligne == JoueurSuivant->positionJ.ligne ||
-    joueurActuel->positionJ.colonne == JoueurSuivant->positionJ.colonne &&
-            joueurActuel->pa >= joueurActuel->classeJ.sort[0].PA) {
+    if ( JoueurSuivant != listeJ && JoueurActuel->positionJ.ligne == JoueurSuivant->positionJ.ligne ||
+            JoueurActuel->positionJ.colonne == JoueurSuivant->positionJ.colonne &&
+            JoueurActuel->pa >= JoueurActuel->classeJ.sort[0].PA && v == 1) {
 
-        joueurActuel->pa = joueurActuel->pa + joueurActuel->classeJ.sort[0].PA;
-        JoueurSuivant->pv = JoueurSuivant->pv + joueurActuel->classeJ.sort[0].degat;
+        JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[0].PA;
+        JoueurSuivant->pv = JoueurSuivant->pv + JoueurActuel->classeJ.sort[0].degat;
         printf( " Attack reached Elipse ");
         return;
 
@@ -212,12 +230,13 @@ void Elipse(Joueurs *joueurActuel,Joueurs *listeJ){
         return;
     }
 
-    Elipse(joueurActuel,listeJ->next);
+    Elipse(JoueurActuel,listeJ->next);
 
 }
 
-void CercleVicieux(Joueurs *JoueurActuel){
-    if (JoueurActuel->pa >= JoueurActuel->classeJ.sort[1].PA) {
+void CercleVicieux(Joueurs *JoueurActuel, Joueurs *listeJ){
+    int v = verifPortee(JoueurActuel,listeJ,0);
+    if (JoueurActuel->pa >= JoueurActuel->classeJ.sort[1].PA && v == 1) {
         JoueurActuel->pm = INFINI; // il peut se délacer ou il veut
         printf("cercle Vicieux\n");
         JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[1].PA;
@@ -226,14 +245,15 @@ void CercleVicieux(Joueurs *JoueurActuel){
     }
 }
 
-void DisqueTranchant(Joueurs *JA, Joueurs *listeJ){
+void DisqueTranchant(Joueurs *JoueurActuel, Joueurs *listeJ){
     Joueurs* JoueurSuivant = listeJ->next;
+    int v = verifPortee(JoueurActuel,listeJ,0);
 
-    if ((JoueurSuivant != listeJ && JA->positionJ.ligne - JoueurSuivant->positionJ.ligne <= abs(2) ||
-    JA->positionJ.colonne - JoueurSuivant->positionJ.colonne <= abs(2)) &&
-    JA->pa >= JA->classeJ.sort[2].PA && JoueurSuivant->positionJ.ligne) {
+    if ((JoueurSuivant != listeJ && JoueurActuel->positionJ.ligne - JoueurSuivant->positionJ.ligne <= abs(2) ||
+            JoueurActuel->positionJ.colonne - JoueurSuivant->positionJ.colonne <= abs(2)) &&
+            JoueurActuel->pa >= JoueurActuel->classeJ.sort[2].PA && JoueurSuivant->positionJ.ligne && v== 1) {
 
-        JA->pa = JA->pa + JA->classeJ.sort[2].PA; // plus car initialisation en négatif
+        JoueurActuel->pa = JoueurActuel->pa + JoueurActuel->classeJ.sort[2].PA; // plus car initialisation en négatif
         JoueurSuivant->pv = JoueurSuivant->pv + JoueurSuivant->classeJ.sort[2].degat;
         printf(" Attack reached TRANCHANT ");
         return;
@@ -242,7 +262,7 @@ void DisqueTranchant(Joueurs *JA, Joueurs *listeJ){
         ///printf("tranchant fin car plus de joueur);
         return;
     }
-    DisqueTranchant(JA,listeJ->next);
+    DisqueTranchant(JoueurActuel,listeJ->next);
     //  printf(" parcours liste joueur ok ");
 
 }
