@@ -129,7 +129,7 @@ int determinerLeChemin(Coords *joueurPI, int *PM, Coords PF, int tabObstacle[LIG
             if (ecart == 0) { // on réinitialise tout (position joueur et tabChemin) / on cherche un nouveau chemin
                 joueurPI->colonne = tabChemin[0].colonne;
                 joueurPI->ligne = tabChemin[0].ligne;
-                *PM = 0;
+                *PM = 3;
                 initialiserTabChemin(tabChemin);
                 indiceTab = 0;
                 tabChemin[indiceTab] = positionInitiale;
